@@ -3,7 +3,7 @@
   <name>happymimi_navigation</name>
   <version>1.0.0</version>
   <description>The happymimi_navigation package</description>
-  <maintainer email="kit.robocup.home">issei</maintainer>
+  <maintainer email="kit.robocup.home@gmail.com">issei</maintainer>
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
