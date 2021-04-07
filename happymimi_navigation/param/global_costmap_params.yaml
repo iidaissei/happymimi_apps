@@ -18,4 +18,3 @@ global_costmap:
 
   static_layer:
     enabled: true
-
