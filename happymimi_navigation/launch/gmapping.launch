@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
-  <!-- sensor -->
+  <!-- Sensor -->
   <include file="$(find happymimi_bringup)/launch/sensor.launch" />
 
   <!-- Gmapping -->
