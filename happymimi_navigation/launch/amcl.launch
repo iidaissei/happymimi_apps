@@ -5,12 +5,13 @@
 
   <!-- Map server -->
   <!-- <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/> -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+  <!-- <arg name="map_file" default="~/firsit_demo.yaml"/> -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/second_demo.yaml" />
 
   <!-- AMCL -->
-  <include file="$(find happymimi_navigation)/launch/includes/amcl.launch.xml"/>
+  <include file="$(find happymimi_navigation)/launch/include/amcl.launch.xml"/>
 
   <!-- Move base -->
-  <include file="$(find happymimi_navigation)/launch/includes/move_base.launch.xml"/>
+  <include file="$(find happymimi_navigation)/launch/include/move_base.launch.xml"/>
 
 </launch>
