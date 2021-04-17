@@ -4,9 +4,9 @@
   <include file="$(find happymimi_bringup)/launch/sensor.launch" />
 
   <!-- Map server -->
-  <!-- <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/> -->
-  <!-- <arg name="map_file" default="~/firsit_demo.yaml"/> -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/second_demo.yaml" />
+  <arg name="map_file" default="$(find happymimi_navigation)/maps/second_demo.yaml"/>
+  <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/second_demo.yaml" /> -->
+  <node name="map_server" pkg="map_server" type="map_server" args="map_filel" />
 
   <!-- AMCL -->
   <include file="$(find happymimi_navigation)/launch/include/amcl.launch.xml"/>

@@ -1,23 +1,15 @@
 # local costmap params for MEGAROVER
-
 local_costmap:
-  # 各TFフレームの設定
   global_frame: odom
-  robot_base_frame: base_link
-  # 更新頻度の設定
+  robot_base_frame: /base_footprint
   update_frequency: 5.0
   publish_frequency: 2.0
   static_map: false
   rolling_window: true
-  # ローカルコストマップの計算範囲
   width: 4.0
   height: 4.0
-  # ローカルコストマップの解像度
   resolution: 0.05
-  # タイムスタンプのずれの許容量
   transform_tolerance: 0.5
   plugins:
-    - {name: obstacle_layer,  type: "costmap_2d::ObstacleLayer"}
+    - {name: obstacle_layer,  type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
-
-

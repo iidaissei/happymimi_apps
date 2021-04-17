@@ -1,21 +1,51 @@
 # costmap common params for MEGAROVER
 
-# ロボットの大きさに関するパラメータ
+max_obstacle_height: 1.0  # assume something like an arm is mounted on top of the robot
+
 footprint: [[0.1, -0.15], [0.1, 0.15], [-0.2, 0.15], [-0.2, -0.15]]
 
+map_type: voxel
+# map_type: costmap_2d
+
 obstacle_layer:
-  enabled: true
-
-  # これ以下の距離にある物体を障害物として扱う
+  enabled:              true
+  max_obstacle_height:  0.6
+  origin_z:             0.0
+  z_resolution:         0.2
+  z_voxels:             2
+  unknown_threshold:    15
+  mark_threshold:       0
+  combination_method:   1
+  track_unknown_space:  true    #true needed for disabling global path planning through unknown space
   obstacle_range: 2.5
+  raytrace_range: 2.0
+  origin_z: 0.0
+  z_resolution: 0.2
+  z_voxels: 2
+  publish_voxel_map: false
 
-  # これ以下の距離に物体が検出された場合、ロボットとその物体との間に障害物はないものとして扱う
-  raytrace_range: 1.0
-
-  # LRFの設定
   observation_sources: laser_scan_sensor
-  laser_scan_sensor: {sensor_frame: base_laser_link, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+  laser_scan_sensor:
+    sensor_frame: base_laser_link
+    data_type: LaserScan
+    topic: scan
+    marking: true
+    clearing: true
+    min_obstacle_height: 0.05
+    max_obstacle_height: 0.35
+  # bump:
+  #   data_type: PointCloud2
+  #   topic: mobile_base/sensors/bumper_pointcloud
+  #   marking: true
+  #   clearing: false
+  #   min_obstacle_height: 0.0
+  #   max_obstacle_height: 0.15
+  # for debugging only, let's you see the entire voxel grid
 
 inflation_layer:
-  enabled: true
-  inflation_radius: 0.25
+  enabled:              true
+  cost_scaling_factor:  10
+  inflation_radius:     0.2
+
+static_layer:
+  enabled:              true
