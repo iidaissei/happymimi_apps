@@ -4,6 +4,7 @@ max_obstacle_height: 1.0  # assume something like an arm is mounted on top of th
 
 footprint: [[0.1, -0.15], [0.1, 0.15], [-0.2, 0.15], [-0.2, -0.15]]
 
+# hydro以降はいらないらしい
 # map_type: voxel
 # map_type: costmap_2d
 
@@ -33,19 +34,20 @@ obstacle_layer:
     clearing: true
     min_obstacle_height: 0.01
     max_obstacle_height: 0.6
-  # bump:
+  # realsense_sensor:
+  #   sensor_frame: sensor_d435_link
   #   data_type: PointCloud2
-  #   topic: mobile_base/sensors/bumper_pointcloud
+  #   topic: depth/points
   #   marking: true
-  #   clearing: false
-  #   min_obstacle_height: 0.0
-  #   max_obstacle_height: 0.15
+  #   clearing: true
+  #   min_obstacle_height: 0.3
+  #   max_obstacle_height: 1.8
   # for debugging only, let's you see the entire voxel grid
 
 inflation_layer:
-  enabled:              true
-  cost_scaling_factor:  10
-  inflation_radius:     0.36
+  enabled: true
+  cost_scaling_factor: 10
+  inflation_radius: 0.35
 
 static_layer:
-  enabled:              true
+  enabled: true
