@@ -26,7 +26,7 @@ class SetLocationServer():
         self.location_pose_w = 0.00
 
     def getOdomCB(self, receive_msg):
-        if receive_msg.child_frame_id == 'base_footprint':
+        if receive_msg.child_frame_id == 'base_link':
             self.location_pose_x = receive_msg.pose.pose.position.x
             self.location_pose_y = receive_msg.pose.pose.position.y
             self.location_pose_z = receive_msg.pose.pose.orientation.z

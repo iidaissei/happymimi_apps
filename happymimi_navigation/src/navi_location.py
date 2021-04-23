@@ -41,20 +41,21 @@ class NaviLocationServer():
         goal.target_pose.pose.orientation.z = location_list[2]
         goal.target_pose.pose.orientation.w = location_list[3]
         # clearing costmap
-        rospy.loginfo("Clearing costmap...")
-        rospy.wait_for_service('move_base/clear_costmaps')
-        self.clear_costmap()
+        # rospy.loginfo("Clearing costmap...")
+        # rospy.wait_for_service('move_base/clear_costmaps')
+        # self.clear_costmap()
         rospy.sleep(0.5)
         # start navigation
         self.ac.wait_for_server()
         self.ac.send_goal(goal)
-        self.ac.wait_for_result()
+        # self.ac.wait_for_result()
+        navi_state = self.ac.get_state()
         while not rospy.is_shutdown():
             navi_state = self.ac.get_state()
-            if navi_state == 3 or 0:
+            if navi_state == 3:
                 rospy.loginfo('Navigation success!!')
                 return NaviLocationResponse(result = True)
-            elif state == 4:
+            elif navi_state == 4:
                 rospy.loginfo('Navigation Failed')
                 return NaviLocationResponse(result = False)
             else:

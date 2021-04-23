@@ -7,7 +7,7 @@
 
   <!-- Map server -->
   <!-- <arg name="map_file" default="$(find happymimi_navigation)/maps/second_demo.yaml"/> -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/second_demo.yaml" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/test_2.yaml" />
   <!-- <node name="map_server" pkg="map_server" type="map_server" args="map_file" /> -->
 
   <!-- AMCL -->
