@@ -15,7 +15,7 @@ from happymimi_msgs.srv import SetLocation, SetLocationResponse
 class SetLocationServer():
     def __init__(self):
         service = rospy.Service('/set_location_server', SetLocation, self.checkState)
-        rospy.loginfo("Ready to set location server")
+        rospy.loginfo("Ready to set_location_server")
         # Subscriber
         rospy.Subscriber('/odom', Odometry, self.getOdomCB)
         # Value

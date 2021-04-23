@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
+  <!-- Param -->
+  <rosparam file="$(find happymimi_navigation)/maps/location/test_1.yaml" command="load" ns="/location_dict" />
   <!-- Sensor -->
   <include file="$(find happymimi_bringup)/launch/sensor.launch" />
 
