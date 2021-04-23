@@ -3,12 +3,10 @@
 #-----------------------------------------------------------
 # Title: 目的地の名前と座標を設定するサービスサーバー
 # Author: Issei Iida
-# Date: 2021/04/19
 #-----------------------------------------------------------
-
 import rospy
-import roslib.packages
 import rosparam
+import roslib.packages
 from std_msgs.msg import String
 from nav_msgs.msg import Odometry
 from happymimi_msgs.srv import SetLocation, SetLocationResponse
@@ -36,18 +34,21 @@ class SetLocationServer():
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':
-            rospy.loginfo('Add location')
+            rospy.loginfo("Add location")
             return SetLocationResponse(result = self.addLocation(srv_req.name))
         elif srv_req.state == 'save':
-            rospy.loginfo('Save location')
+            rospy.loginfo("Save location")
             return SetLocationResponse(result = self.saveLocation(srv_req.name))
         else:
-            rospy.loginfo('What are you doing?')
-            return LocationSetupResponse(result = False)
+            rospy.logerr("<" + srv_req.state + "> state doesn't exist.")
+            return SetLocationResponse(result = False)
 
     def addLocation(self, name):
         if name in self.location_dict:
             rospy.logerr('<' + name + '> has already been registerd. Please enter a different name.')
+            return False
+        elif name == '':
+            rospy.logerr("No location name enterd.")
             return False
         else:
             self.location_dict[name] = []
@@ -56,7 +57,7 @@ class SetLocationServer():
             self.location_dict[name].append(self.location_pose_z)
             self.location_dict[name].append(self.location_pose_w)
             print self.location_dict
-            rospy.loginfo('Registerd <' + name + '>')
+            rospy.loginfo("Registerd <" + name + ">")
             return True
 
     def saveLocation(self, file_name):
@@ -65,10 +66,10 @@ class SetLocationServer():
             rospy.set_param('/location_dict', self.location_dict)
             rosparam.dump_params(pkg_path + '/maps/location/' + file_name + '.yaml', '/location_dict')
             print rosparam.get_param('/location_dict')
-            rospy.loginfo('Saved as <' + file_name + '>')
+            rospy.loginfo("Saved as <" + file_name + ">")
             return True
         except rospy.ROSInterruptException:
-            rospy.err("Could not save.")
+            rospy.logerr("Could not save.")
             return False
 
 if __name__ == '__main__':
