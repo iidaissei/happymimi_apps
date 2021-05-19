@@ -19,7 +19,7 @@ class BaseControl():
         self.target_time = 0.0
         self.rate = rospy.Rate(30)
 
-    def baseControl(self):
+    def publishTwist(self):
         start_time = time.time()
         end_time = time.time()
         while end_time - start_time <= target_time:
@@ -34,10 +34,10 @@ class BaseControl():
         self.target_time = abs(distance / speed)
         self.twist_value.linear.x = speed
         self.twist_value.angular.z = 0.0
-        self.baseControl()
+        self.publishTwist()
 
     def rotateAngle(self, degree, speed = 0.2):
         self.target_time = (math.radians(degree) / speed)
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = speed
-        self.baseControl()
+        self.publishTwist()
