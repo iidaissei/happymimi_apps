@@ -1,0 +1,8 @@
+#Difine the goal
+float32 distance
+---
+#Difine the results
+bool data
+---
+#Difine the a feedback message
+int8 state
