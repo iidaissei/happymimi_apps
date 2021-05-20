@@ -37,7 +37,7 @@ class BaseControl():
         self.publishTwist()
 
     def rotateAngle(self, degree, speed = 0.2):
-        self.target_time = (math.radians(degree) / speed)
+        self.target_time = abs(math.radians(degree) / speed)
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = speed
         self.publishTwist()
