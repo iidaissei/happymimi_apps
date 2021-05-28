@@ -22,22 +22,22 @@ class BaseControl():
     def publishTwist(self):
         start_time = time.time()
         end_time = time.time()
-        while end_time - start_time <= target_time:
+        while end_time - start_time <= self.target_time:
             self.twist_pub.publish(self.twist_value)
             end_time = time.time()
-            rate.sleep()
+            self.rate.sleep()
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = 0.0
-        self.pub_twist.publish(self.twist_value)
+        self.twist_pub.publish(self.twist_value)
 
-    def translateDist(self, distance, speed = 0.2):
-        self.target_time = abs(distance / speed)
+    def translateDist(self, dist, speed = 0.2):
+        self.target_time = abs(dist / speed)
         self.twist_value.linear.x = speed
         self.twist_value.angular.z = 0.0
         self.publishTwist()
 
-    def rotateAngle(self, degree, speed = 0.2):
-        self.target_time = abs(math.radians(degree) / speed)
+    def rotateAngle(self, deg, speed = 0.2):
+        self.target_time = abs(math.radians(deg) / speed)
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = speed
         self.publishTwist()
