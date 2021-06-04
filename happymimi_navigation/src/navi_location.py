@@ -7,6 +7,7 @@
 import rospy
 import rosparam
 import actionlib
+from std_msgs.msg import String
 from std_srvs.srv import Empty
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from happymimi_navigation.srv import NaviLocation, NaviLocationResponse
@@ -18,15 +19,19 @@ class NaviLocationServer():
         rospy.loginfo("Ready to navi_location_server")
         # Action
         self.ac = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
+        # Publisher
+        self.crloc_pub = rospy.Publisher('/current_location', String, queue_size = 1)
         # Service
         self.clear_costmap = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
         # Value
         self.location_dict = rosparam.get_param('/location_dict')
+        self.location_name = "null"
 
     def searchLocationName(self, srv_req):
         if srv_req.location_name in self.location_dict:
-            print self.location_dict[srv_req.location_name]
-            return self.sendGoal(self.location_dict[srv_req.location_name])
+            self.location_name = srv_req.location_name
+            print self.location_dict[self.location_name]
+            return self.sendGoal(self.location_dict[self.location_name])
         else:
             rospy.logerr("<" + srv_req.location_name + "> doesn't exist.")
             return NaviLocationResponse(result = False)
@@ -54,6 +59,7 @@ class NaviLocationServer():
             navi_state = self.ac.get_state()
             if navi_state == 3:
                 rospy.loginfo('Navigation success!!')
+                self.crloc_pub.publish(self.location_name)
                 return NaviLocationResponse(result = True)
             elif navi_state == 4:
                 rospy.loginfo('Navigation Failed')
