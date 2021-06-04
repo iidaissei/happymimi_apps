@@ -9,7 +9,7 @@ import rosparam
 import roslib.packages
 from std_msgs.msg import String
 from nav_msgs.msg import Odometry
-from happymimi_msgs.srv import SetLocation, SetLocationResponse
+from happymimi_navigation.srv import SetLocation, SetLocationResponse
 
 
 class SetLocationServer():
@@ -62,9 +62,9 @@ class SetLocationServer():
 
     def saveLocation(self, file_name):
         try:
-            pkg_path = roslib.packages.get_pkg_dir("happymimi_navigation")
+            pkg_path = roslib.packages.get_pkg_dir("happymimi_params")
             rospy.set_param('/location_dict', self.location_dict)
-            rosparam.dump_params(pkg_path + '/maps/location/' + file_name + '.yaml', '/location_dict')
+            rosparam.dump_params(pkg_path + '/param' + file_name + '.yaml', '/location_dict')
             print rosparam.get_param('/location_dict')
             rospy.loginfo("Saved as <" + file_name + ">")
             return True

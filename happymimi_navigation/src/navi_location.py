@@ -9,7 +9,7 @@ import rosparam
 import actionlib
 from std_srvs.srv import Empty
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from happymimi_msgs.srv import NaviLocation, NaviLocationResponse
+from happymimi_navigation.srv import NaviLocation, NaviLocationResponse
 
 
 class NaviLocationServer():
