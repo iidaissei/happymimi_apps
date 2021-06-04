@@ -8,9 +8,8 @@
 #--------------------------------------------------------------------
 import rospy
 from sensor_msgs.msg import LaserScan
-from happymimi_msgs.srv import EnterRoom, EnterRoomResponse
+from happymimi_teleop.srv import EnterRoom, EnterRoomResponse
 from base_control import BaseControl
-
 
 class EnterRoomServer():
     def __init__(self):
