@@ -17,11 +17,11 @@ class BaseControl():
         # Value
         self.twist_value = Twist()
         self.target_time = 0.0
-        self.rate = rospy.Rate(30)
+        self.rate = rospy.Rate(1.0)
 
     def publishTwist(self):
         start_time = time.time()
-        end_time = time.time()
+        end_time = time.time() + 0.15 # 誤差をカバーする0.15
         while end_time - start_time <= self.target_time:
             self.twist_pub.publish(self.twist_value)
             end_time = time.time()
@@ -36,7 +36,7 @@ class BaseControl():
         self.twist_value.angular.z = 0.0
         self.publishTwist()
 
-    def rotateAngle(self, deg, speed = 0.2):
+    def rotateAngle(self, deg, speed = 0.5):
         self.target_time = abs(math.radians(deg) / speed)
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = speed
