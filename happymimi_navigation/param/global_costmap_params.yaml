@@ -8,8 +8,7 @@ global_costmap:
   plugins:
     - {name: static_layer, type: "costmap_2d::StaticLayer"}
     - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
-    - {name: 3DPerception, type: 'costmap_depth_camera::DepthCameraObstacleLayer'}
-    # - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
+    - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
   static:
     map_topic: /map

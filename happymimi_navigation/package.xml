@@ -29,6 +29,9 @@
   <exec_depend>happymimi_bringup</exec_depend>
   <exec_depend>dwa_local_planner</exec_depend>
 
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
   <export>
 
   </export>
