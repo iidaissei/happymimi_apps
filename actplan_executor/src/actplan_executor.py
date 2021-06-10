@@ -1,23 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #--------------------------------------------------------------------
-# Title: ActionPlanから行動を決定して実行するアクションサーバー
+# Title: ActionPlanから行動を決定して実行するActionServer
 # Author: Issei Iida
-# Date: 2020/02/07
+# Date: 2021/06/04
 #-----------------------------------------------------------------------------
-
 import sys
-
 import rospy
 import rosparam
-import actionlib
 import smach
-from smach import StateMachine
-import smach_ros
 from smach_ros import ActionServerWrapper
-from std_msgs.msg import String
-from mimi_common_pkg.srv import ManipulateSrv, RecognizeCount
-from mimi_common_pkg.msg import ExeActionPlanAction
+from actplan_executor.msg import ActplanExecutorAction
+# from mimi_common_pkg.srv import ManipulateSrv, RecognizeCount
+from mimi_common_pkg.msg import ActplanExecutorAction
+
 
 sys.path.insert(0, '/home/athome/catkin_ws/src/mimi_common_pkg/scripts/')
 from common_function import speak, searchLocationName, m6Control 
@@ -32,7 +28,7 @@ class DecideAction(smach.State):
                              output_keys = ['a_action_out', 'a_data_out',
                                             'a_num_out', 'result_message'])
         # Param
-        self.action_state = rosparam.get_param('/action_state')
+        self.action_state = rosparam.get_param('/act_state')
 
     def execute(self, userdata):
         rospy.loginfo('Executing state: DECIDE_ACTION')
@@ -57,8 +53,6 @@ class Move(smach.State):
         smach.State.__init__(self, outcomes = ['move_finish', 'move_failed'],
                              input_keys = ['action_in', 'data_in', 'num_in'],
                              output_keys = ['a_num_out'])
-        # Publisher
-        self.pub_location = rospy.Publisher('/current_location', String, queue_size = 1)
 
     def execute(self, userdata):
         rospy.loginfo('Executing state: MOVE')
@@ -69,7 +63,6 @@ class Move(smach.State):
         if name == 'go':
             coord_list = searchLocationName(data)
             result = navigationAC(coord_list)
-            self.pub_location.publish(data)
         elif name == 'approach':
             result = approachPersonAC()
         else:
@@ -149,7 +142,6 @@ class Search(smach.State):
             userdata.a_num_out = 0 
             return 'search_failed'
 
-
 class Speak(smach.State):
     def __init__(self):
         smach.State.__init__(self, outcomes = ['speak_finish', 'speak_failed'],
@@ -169,14 +161,15 @@ class Speak(smach.State):
         return 'speak_finish'
 
 
-def main():
-    sm_top = StateMachine(outcomes = ['success', 'action_failed', 'preempted'],
+if __name__ == '__main__':
+    rospy.init_node('actplan_executor', anonymous = True)
+    sm_top = smach.StateMachine(outcomes = ['success', 'action_failed', 'preempted'],
                           input_keys = ['goal_message', 'result_message'],
                           output_keys = ['result_message'])
     sm_top.userdata.action_num = 0
-    sm_top.userdata.obj_num = 'none'
+    sm_top.userdata.obj_num = "none"
     with sm_top:
-        StateMachine.add('DECIDE_ACTION', DecideAction(),
+        smach.StateMachine.add('DECIDE_ACTION', DecideAction(),
                          transitions = {'move':'MOVE',
                                         'mani':'MANI',
                                         'search':'SEARCH',
@@ -189,7 +182,7 @@ def main():
                                       'a_num_out':'action_num',
                                       'result_out':'result_message'})
 
-        StateMachine.add('MOVE', Move(),
+        smach.StateMachine.add('MOVE', Move(),
                          transitions = {'move_finish':'DECIDE_ACTION',
                                         'move_failed':'action_failed'},
                          remapping = {'action_in':'action_name',
@@ -197,7 +190,7 @@ def main():
                                       'num_in':'action_num',
                                       'a_num_out':'action_num'})
 
-        StateMachine.add('MANI', Mani(),
+        smach.StateMachine.add('MANI', Mani(),
                          transitions = {'mani_finish':'DECIDE_ACTION',
                                         'mani_failed':'action_failed'},
                          remapping = {'action_in':'action_name',
@@ -205,7 +198,7 @@ def main():
                                       'num_in':'action_num',
                                       'a_num_out':'action_num'})
 
-        StateMachine.add('SEARCH', Search(),
+        smach.StateMachine.add('SEARCH', Search(),
                          transitions = {'search_finish':'DECIDE_ACTION',
                                         'search_failed':'action_failed'},
                          remapping = {'action_in':'action_name',
@@ -214,7 +207,7 @@ def main():
                                       'a_num_out':'action_num',
                                       'obj_num_out':'obj_num'})
 
-        StateMachine.add('SPEAK', Speak(),
+        smach.StateMachine.add('SPEAK', Speak(),
                          transitions = {'speak_finish':'DECIDE_ACTION',
                                         'speak_failed':'action_failed'},
                          remapping = {'action_in':'action_name',
@@ -223,18 +216,12 @@ def main():
                                       'a_num_out':'action_num',
                                       'obj_num_in':'obj_num'})
 
-    asw = ActionServerWrapper('exe_action_plan', ExeActionPlanAction,
+    asw = ActionServerWrapper('actplan_executor', ActplanExecutorAction,
                               wrapped_container = sm_top,
                               succeeded_outcomes = ['success'],
                               aborted_outcomes = ['action_failed'],
                               preempted_outcomes = ['preempted'],
                               goal_key = 'goal_message',
                               result_key = 'result_message')
-
     asw.run_server()
     rospy.spin()
-
-
-if __name__ == '__main__':
-    rospy.init_node('exe_action_plan', anonymous = True)
-    main()

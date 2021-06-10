@@ -1,9 +1,9 @@
-# Goal
-string[] action
+# goal
+string[] act
 string[] data
 ---
-# Result
+# result
 string data
 ---
-# Feedback
+# feedback
 string data
