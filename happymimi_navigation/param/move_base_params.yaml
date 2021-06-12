@@ -25,4 +25,4 @@ recovery_behaviors:
     type: 'rotate_recovery/RotateRecovery'
 
 super_conservative_reset1:
-  reset_distance: 3.0
+  reset_distance: 5.0
