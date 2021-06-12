@@ -8,7 +8,6 @@ Panels:
         - /TF1/Tree1
         - /Global Map1/Planner1
         - /Local Map1
-        - /Local Map1/Costmap1/Status1
         - /PointCloud21
       Splitter Ratio: 0.5
     Tree Height: 796
@@ -121,7 +120,17 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        neck_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         respeaker_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        spine_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -133,19 +142,82 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        base_footprint:
+          Value: true
+        base_laser_link:
+          Value: true
+        base_link:
+          Value: true
+        camera_aligned_depth_to_color_frame:
+          Value: true
+        camera_bottom_screw_frame:
+          Value: true
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
+          Value: true
+        camera_depth_frame:
+          Value: true
+        camera_depth_optical_frame:
+          Value: true
+        camera_left_ir_frame:
+          Value: true
+        camera_left_ir_optical_frame:
+          Value: true
+        camera_link:
+          Value: true
+        camera_right_ir_frame:
+          Value: true
+        camera_right_ir_optical_frame:
+          Value: true
+        map:
+          Value: true
+        neck_link:
+          Value: true
+        odom:
+          Value: true
+        respeaker_link:
+          Value: true
+        spine_link:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        {}
+        map:
+          odom:
+            base_footprint:
+              base_link:
+                base_laser_link:
+                  {}
+                spine_link:
+                  neck_link:
+                    camera_bottom_screw_frame:
+                      camera_link:
+                        camera_aligned_depth_to_color_frame:
+                          camera_color_optical_frame:
+                            {}
+                        camera_color_frame:
+                          {}
+                        camera_depth_frame:
+                          camera_depth_optical_frame:
+                            {}
+                          camera_left_ir_frame:
+                            camera_left_ir_optical_frame:
+                              {}
+                          camera_right_ir_frame:
+                            camera_right_ir_optical_frame:
+                              {}
+                    respeaker_link:
+                      {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -401,7 +473,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 4096
@@ -418,7 +490,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -446,25 +518,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 9.899999618530273
+      Distance: 1.1368417739868164
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.5820330381393433
-        Y: 0.5496933460235596
-        Z: 0
+        X: -0.01407681405544281
+        Y: 0.17207765579223633
+        Z: -5.960464477539063e-8
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8853980302810669
+      Pitch: 0.22539940476417542
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 2.2003984451293945
+      Yaw: 1.3454004526138306
     Saved: ~
 Window Geometry:
   Displays:
