@@ -28,7 +28,7 @@ obstacle_layer:
 realsense_layer:
   enabled:              true
   max_obstacle_height:  1.8
-  origin_z:             0.71
+  origin_z:             0.8
   z_resolution:         0.2
   z_voxels:             2
   unknown_threshold:    15
