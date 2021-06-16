@@ -4,6 +4,7 @@
 # Title: 目的地の名前と座標を設定するサービスサーバー
 # Author: Issei Iida
 #-----------------------------------------------------------
+import subprocess as sp
 import rospy
 import rosparam
 import roslib.packages
@@ -62,15 +63,18 @@ class SetLocationServer():
 
     def saveLocation(self, file_name):
         try:
-            pkg_path = roslib.packages.get_pkg_dir("happymimi_params")
+            param_path = roslib.packages.get_pkg_dir("happymimi_params")
+            map_path = roslib.packages.get_pkg_dir("happymimi_navigation")
             rospy.set_param('/location_dict', self.location_dict)
-            rosparam.dump_params(pkg_path + '/param/location/' + file_name + '.yaml', '/location_dict')
+            rosparam.dump_params(param_path + '/param/location/' + file_name + '.yaml', '/location_dict')
             print rosparam.get_param('/location_dict')
+            sp.Popen(['rosrun','map_server','map_saver','-f', map_path + '/maps/'+ file_name])
             rospy.loginfo("Saved as <" + file_name + ">")
             return True
         except rospy.ROSInterruptException:
             rospy.logerr("Could not save.")
             return False
+
 
 if __name__ == '__main__':
     rospy.init_node('set_location_server', anonymous = True)

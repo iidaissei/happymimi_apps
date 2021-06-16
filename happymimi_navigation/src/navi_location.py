@@ -46,9 +46,9 @@ class NaviLocationServer():
         goal.target_pose.pose.orientation.z = location_list[2]
         goal.target_pose.pose.orientation.w = location_list[3]
         # clearing costmap
-        # rospy.loginfo("Clearing costmap...")
-        # rospy.wait_for_service('move_base/clear_costmaps')
-        # self.clear_costmap()
+        rospy.loginfo("Clearing costmap...")
+        rospy.wait_for_service('move_base/clear_costmaps')
+        self.clear_costmap()
         rospy.sleep(0.5)
         # start navigation
         self.ac.wait_for_server()
