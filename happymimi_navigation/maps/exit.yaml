@@ -1,4 +1,4 @@
-image: /home/issei/catkin_ws/src/happymimi_apps/happymimi_navigation/maps/second_demo.pgm
+image: /home/issei/catkin_ws/src/happymimi_apps/happymimi_navigation/maps/exit.pgm
 resolution: 0.050000
 origin: [-10.000000, -10.000000, 0.000000]
 negate: 0
