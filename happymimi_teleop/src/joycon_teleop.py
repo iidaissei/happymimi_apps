@@ -22,7 +22,7 @@ class JoyCtrMegarover():
         self.linear = 1
         self.angular = 0
         self.l_scale = 0.6
-        self.a_scale = 0.6
+        self.a_scale = 0.8
         self.safety = 10
 
     def joyCB(self, joy):
