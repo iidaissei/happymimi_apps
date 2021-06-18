@@ -7,6 +7,11 @@
   </node>
 
   <!-- joycon -->
-  <node pkg="happymimi_teleop" type="joycon_teleop.py" name="joycon_teleop" respawn="true"/>
+  <arg name="l_scale" default="0.6" />
+  <arg name="a_scale" default="0.8" />
+  <node pkg="happymimi_teleop" type="joycon_teleop.py" name="joycon_teleop" respawn="true">
+    <param name="/joycon/l_scale" type="double" value="$(arg l_scale)" />
+    <param name="/joycon/a_scale" type="double" value="$(arg a_scale)" />
+  </node>
 
 </launch>
