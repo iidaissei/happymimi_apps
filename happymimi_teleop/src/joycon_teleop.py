@@ -21,9 +21,9 @@ class JoyCtrMegarover():
         self.twist = Twist()
         self.linear = 1
         self.angular = 0
+        self.safety = 10
         self.l_scale = rospy.get_param("joycon_teleop/joycon/l_scale")
         self.a_scale = rospy.get_param("joycon_teleop/joycon/a_scale")
-        self.safety = 10
 
     def joyCB(self, joy):
         try:
@@ -36,7 +36,6 @@ class JoyCtrMegarover():
             self.vel_pub.publish(self.twist)
         except rospy.ROSInterruptException:
             pass
-
 
 if __name__ == '__main__':
     rospy.init_node("joycon_teleop", anonymous = True)
