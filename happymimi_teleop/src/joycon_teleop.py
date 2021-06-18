@@ -4,7 +4,7 @@
 # Title: ジョイスティックで足回り制御をするROSノード
 # Author: Issei Iida
 # Date: 2021/06/17
-# Memo: megroverのjoycon_teleopをpythonで書き換えただけのやつ
+# Memo: dualshock4 コントローラに対応したキー配置設定
 #--------------------------------------------------------------------
 import rospy
 import rosparam
@@ -21,8 +21,8 @@ class JoyCtrMegarover():
         self.twist = Twist()
         self.linear = 1
         self.angular = 0
-        self.l_scale = 0.6
-        self.a_scale = 0.8
+        self.l_scale = rospy.get_param("joycon_teleop/joycon/l_scale")
+        self.a_scale = rospy.get_param("joycon_teleop/joycon/a_scale")
         self.safety = 10
 
     def joyCB(self, joy):
