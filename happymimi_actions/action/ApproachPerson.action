@@ -1,8 +1,0 @@
-#Difine the goal
-string data
----
-#Define the result
-bool data
----
-#Define the a feedback message
-string data
