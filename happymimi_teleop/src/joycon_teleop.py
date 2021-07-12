@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #--------------------------------------------------------------------
 # Title: ジョイスティックで足回り制御をするROSノード
@@ -14,7 +14,7 @@ from sensor_msgs.msg import Joy
 class JoyCtrMegarover():
     def __init__(self):
         # Publisher
-        self.vel_pub = rospy.Publisher("cmd_vel", Twist, queue_size = 1)
+        self.vel_pub = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
         # Subscriber
         rospy.Subscriber("joy", Joy, self.joyCB)
         # Value
@@ -35,6 +35,7 @@ class JoyCtrMegarover():
                 self.twist.linear.x = 0.0
             self.vel_pub.publish(self.twist)
         except rospy.ROSInterruptException:
+            rospy.logerr("!Interrupted!")
             pass
 
 if __name__ == '__main__':
