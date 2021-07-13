@@ -78,7 +78,7 @@ class SetLocationServer():
 
 if __name__ == '__main__':
     rospy.init_node('set_location_server', anonymous = True)
-    try: 
+    try:
         sls = SetLocationServer()
         rospy.spin()
     except rospy.ROSInterruptException:
