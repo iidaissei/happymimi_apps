@@ -52,7 +52,6 @@ realsense_layer:
 
 inflation_layer:
   enabled: true
-  inflation_radius: 0.25
-
+  inflation_radius: 0.3
 static_layer:
   enabled: true

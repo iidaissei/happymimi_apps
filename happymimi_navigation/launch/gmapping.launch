@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
   <!-- Sensor -->
-  <include file="$(find happymimi_bringup)/launch/sensor.launch" />
+  <!-- <include file="$(find happymimi_bringup)/launch/sensor.launch" /> -->
 
   <!-- Gmapping -->
   <include file="$(find happymimi_navigation)/launch/include/gmapping.launch.xml"/>
