@@ -8,8 +8,9 @@ import subprocess as sp
 import rospy
 import rosparam
 import roslib.packages
-from std_msgs.msg import String
 from nav_msgs.msg import Odometry
+# from tf2_msgs.msg import TFMessage
+# from geometory_msgs.msg import TransformStamped
 from happymimi_navigation.srv import SetLocation, SetLocationResponse
 
 
@@ -19,6 +20,7 @@ class SetLocationServer():
         rospy.loginfo("Ready to set_location_server")
         # Subscriber
         rospy.Subscriber('/odom', Odometry, self.getOdomCB)
+        # rospy.Subscriber('/tf', TFMessage, self.getTFCB)
         # Value
         self.location_dict = {}
         self.location_pose_x = 0.00
@@ -27,11 +29,19 @@ class SetLocationServer():
         self.location_pose_w = 0.00
 
     def getOdomCB(self, receive_msg):
-        if receive_msg.child_frame_id == 'base_link':
+        if receive_msg.child_frame_id == 'base_footprint':
             self.location_pose_x = receive_msg.pose.pose.position.x
             self.location_pose_y = receive_msg.pose.pose.position.y
             self.location_pose_z = receive_msg.pose.pose.orientation.z
             self.location_pose_w = receive_msg.pose.pose.orientation.w
+
+    # def getTFCB(self, receive_msg):
+    #     if receive_msg.header.frame_id == 'map':
+    #         if receive_msg.child_frame_id == 'odom':
+    #             self.location_pose_x = receive_msg.transforms.transform.translation.x
+    #             self.location_pose_y = receive_msg.transforms.transform.translation.y
+    #             self.location_pose_z = receive_msg.transforms.transform.rotation.z
+    #             self.location_pose_w = receive_msg.transforms.transform.rotation.w
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':

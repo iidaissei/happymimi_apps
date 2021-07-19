@@ -1,4 +1,4 @@
-image: /home/mimi/test_ws/src/happymimi_apps/happymimi_navigation/maps/demo_0713.pgm
+image: /home/mimi/test_ws/src/happymimi_apps/happymimi_navigation/maps/training_area.pgm
 resolution: 0.050000
 origin: [-10.000000, -10.000000, 0.000000]
 negate: 0
