@@ -8,9 +8,8 @@ import subprocess as sp
 import rospy
 import rosparam
 import roslib.packages
+from tf import TransformListener
 from nav_msgs.msg import Odometry
-# from tf2_msgs.msg import TFMessage
-# from geometory_msgs.msg import TransformStamped
 from happymimi_navigation.srv import SetLocation, SetLocationResponse
 
 
@@ -19,29 +18,27 @@ class SetLocationServer():
         service = rospy.Service('/set_location_server', SetLocation, self.checkState)
         rospy.loginfo("Ready to set_location_server")
         # Subscriber
-        rospy.Subscriber('/odom', Odometry, self.getOdomCB)
-        # rospy.Subscriber('/tf', TFMessage, self.getTFCB)
+        # rospy.Subscriber('/odom', Odometry, self.getOdomCB)
         # Value
+        self.tf = TransformListener()
         self.location_dict = {}
         self.location_pose_x = 0.00
         self.location_pose_y = 0.00
         self.location_pose_z = 0.00
         self.location_pose_w = 0.00
 
-    def getOdomCB(self, receive_msg):
-        if receive_msg.child_frame_id == 'base_footprint':
-            self.location_pose_x = receive_msg.pose.pose.position.x
-            self.location_pose_y = receive_msg.pose.pose.position.y
-            self.location_pose_z = receive_msg.pose.pose.orientation.z
-            self.location_pose_w = receive_msg.pose.pose.orientation.w
+    # def getOdomCB(self, receive_msg):
+    #     if receive_msg.child_frame_id == 'base_footprint':
+    #         self.location_pose_x = receive_msg.pose.pose.position.x
+    #         self.location_pose_y = receive_msg.pose.pose.position.y
+    #         self.location_pose_z = receive_msg.pose.pose.orientation.z
+    #         self.location_pose_w = receive_msg.pose.pose.orientation.w
 
-    # def getTFCB(self, receive_msg):
-    #     if receive_msg.header.frame_id == 'map':
-    #         if receive_msg.child_frame_id == 'odom':
-    #             self.location_pose_x = receive_msg.transforms.transform.translation.x
-    #             self.location_pose_y = receive_msg.transforms.transform.translation.y
-    #             self.location_pose_z = receive_msg.transforms.transform.rotation.z
-    #             self.location_pose_w = receive_msg.transforms.transform.rotation.w
+    def getMapPosition(self):
+        if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
+            t = self.tf.getLatestCommonTime("/base_link", "/map")
+            position, quaternion = self.tf.lookupTransform("/base_link", "/map", t)
+            print position, quaternion
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':
