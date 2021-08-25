@@ -35,10 +35,13 @@ class SetLocationServer():
     #         self.location_pose_w = receive_msg.pose.pose.orientation.w
 
     def getMapPosition(self):
-        if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
-            t = self.tf.getLatestCommonTime("/base_link", "/map")
-            position, quaternion = self.tf.lookupTransform("/base_link", "/map", t)
-            print position, quaternion
+        # if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
+        t = self.tf.getLatestCommonTime("/base_link", "/map")
+        position, quaternion = self.tf.lookupTransform("/base_link", "/map", t)
+        self.location_pose_x = position[0]
+        self.location_pose_y = position[1]
+        self.location_pose_z = quaternion[2]
+        self.location_pose_w = quaternion[3]
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':
@@ -59,6 +62,8 @@ class SetLocationServer():
             rospy.logerr("No location name enterd.")
             return False
         else:
+            print 'i'
+            self.getMapPosition()
             self.location_dict[name] = []
             self.location_dict[name].append(self.location_pose_x)
             self.location_dict[name].append(self.location_pose_y)
