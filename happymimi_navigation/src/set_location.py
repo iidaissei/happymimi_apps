@@ -36,8 +36,8 @@ class SetLocationServer():
 
     def getMapPosition(self):
         # if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
-        t = self.tf.getLatestCommonTime("/base_link", "/map")
-        position, quaternion = self.tf.lookupTransform("/base_link", "/map", t)
+        # t = self.tf.getLatestCommonTime("/map", "/odom")
+        position, quaternion = self.tf.lookupTransform("/map", "/odom", rospy.Time(0))
         self.location_pose_x = position[0]
         self.location_pose_y = position[1]
         self.location_pose_z = quaternion[2]
