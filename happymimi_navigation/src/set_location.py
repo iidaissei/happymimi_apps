@@ -8,6 +8,7 @@ import subprocess as sp
 import rospy
 import rosparam
 import roslib.packages
+import tf
 from tf import TransformListener
 from nav_msgs.msg import Odometry
 from happymimi_navigation.srv import SetLocation, SetLocationResponse
@@ -37,11 +38,16 @@ class SetLocationServer():
     def getMapPosition(self):
         # if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
         # t = self.tf.getLatestCommonTime("/map", "/odom")
-        position, quaternion = self.tf.lookupTransform("/map", "/odom", rospy.Time(0))
-        self.location_pose_x = position[0]
-        self.location_pose_y = position[1]
-        self.location_pose_z = quaternion[2]
-        self.location_pose_w = quaternion[3]
+        position, quaternion = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
+        q = tf.transformations.quaternion_from_euler(position[0], position[1], position[2])
+        self.location_pose_x = q[0]
+        self.location_pose_y = q[1]
+        self.location_pose_z = q[2]
+        self.location_pose_w = q[3]
+        # self.location_pose_x = position[0]
+        # self.location_pose_y = position[1]
+        # self.location_pose_z = quaternion[2]
+        # self.location_pose_w = quaternion[3]
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':
