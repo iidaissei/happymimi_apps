@@ -1,6 +1,7 @@
 # local costmap params for MEGAROVER
 local_costmap:
-  global_frame: odom
+  # global_frame: odom
+  global_frame: /map
   robot_base_frame: /base_footprint
   update_frequency: 5.0
   publish_frequency: 2.0
@@ -11,5 +12,5 @@ local_costmap:
   transform_tolerance: 0.5
   plugins:
     - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
-    # - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+    # - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
