@@ -8,8 +8,7 @@ import subprocess as sp
 import rospy
 import rosparam
 import roslib.packages
-import tf
-# from tf import TransformListener
+from tf import TransformListener
 from happymimi_navigation.srv import SetLocation, SetLocationResponse
 
 
@@ -18,7 +17,6 @@ class SetLocationServer():
         service = rospy.Service('/set_location_server', SetLocation, self.checkState)
         rospy.loginfo("Ready to set_location_server")
         # Value
-        self.tf_trans = tf.TransformListener()
         self.location_dict = {}
         self.location_pose_x = 0.00
         self.location_pose_y = 0.00
@@ -26,17 +24,12 @@ class SetLocationServer():
         self.location_pose_w = 0.00
 
     def getMapPosition(self):
-        # position, quaternion = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
-        position, quaternion = self.tf_trans.lookupTransform("/map", "/base_link", rospy.Time(0))
-        q = tf.transformations.quaternion_from_euler(position[0], position[1], position[2])
-        # self.location_pose_x = float(q[0])
-        # self.location_pose_y = float(q[1])
-        # self.location_pose_z = float(q[2])
-        # self.location_pose_w = float(q[3])
+        tf = TransformListener()
+        position, rotation = tf.lookupTransform("/map", "/base_link", rospy.Time(0))
         self.location_pose_x = position[0]
         self.location_pose_y = position[1]
-        self.location_pose_z = quaternion[2]
-        self.location_pose_w = quaternion[3]
+        self.location_pose_z = rotation[2]
+        self.location_pose_w = rotation[3]
 
     def checkState(self, srv_req):
         if srv_req.state == 'add':
