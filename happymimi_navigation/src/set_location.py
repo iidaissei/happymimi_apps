@@ -9,9 +9,7 @@ import rospy
 import rosparam
 import roslib.packages
 import tf
-from geometry_msgs.msg import Quaternion
-from tf import TransformListener
-from nav_msgs.msg import Odometry
+# from tf import TransformListener
 from happymimi_navigation.srv import SetLocation, SetLocationResponse
 
 
@@ -19,27 +17,17 @@ class SetLocationServer():
     def __init__(self):
         service = rospy.Service('/set_location_server', SetLocation, self.checkState)
         rospy.loginfo("Ready to set_location_server")
-        # Subscriber
-        # rospy.Subscriber('/odom', Odometry, self.getOdomCB)
         # Value
-        self.tf = TransformListener()
+        self.tf_trans = tf.TransformListener()
         self.location_dict = {}
         self.location_pose_x = 0.00
         self.location_pose_y = 0.00
         self.location_pose_z = 0.00
         self.location_pose_w = 0.00
 
-    # def getOdomCB(self, receive_msg):
-    #     if receive_msg.child_frame_id == 'base_footprint':
-    #         self.location_pose_x = receive_msg.pose.pose.position.x
-    #         self.location_pose_y = receive_msg.pose.pose.position.y
-    #         self.location_pose_z = receive_msg.pose.pose.orientation.z
-    #         self.location_pose_w = receive_msg.pose.pose.orientation.w
-
     def getMapPosition(self):
-        # if self.tf.frameExists("/base_link") and self.tf.frameExists("/map"):
-        # t = self.tf.getLatestCommonTime("/map", "/odom")
-        position, quaternion = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
+        # position, quaternion = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
+        position, quaternion = self.tf_trans.lookupTransform("/map", "/base_link", rospy.Time(0))
         q = tf.transformations.quaternion_from_euler(position[0], position[1], position[2])
         # self.location_pose_x = float(q[0])
         # self.location_pose_y = float(q[1])
@@ -63,13 +51,12 @@ class SetLocationServer():
 
     def addLocation(self, name):
         if name in self.location_dict:
-            rospy.logerr('<' + name + '> has already been registerd. Please enter a different name.')
+            rospy.logerr('<' + name + '> has been registerd. Please enter a different name.')
             return False
         elif name == '':
             rospy.logerr("No location name enterd.")
             return False
         else:
-            print 'i'
             self.getMapPosition()
             self.location_dict[name] = []
             self.location_dict[name].append(self.location_pose_x)
