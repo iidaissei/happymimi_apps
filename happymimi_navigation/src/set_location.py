@@ -17,6 +17,7 @@ class SetLocationServer():
         service = rospy.Service('/set_location_server', SetLocation, self.checkState)
         rospy.loginfo("Ready to set_location_server")
         # Value
+        self.tf = TransformListener()
         self.location_dict = {}
         self.location_pose_x = 0.00
         self.location_pose_y = 0.00
@@ -24,8 +25,7 @@ class SetLocationServer():
         self.location_pose_w = 0.00
 
     def getMapPosition(self):
-        tf = TransformListener()
-        position, rotation = tf.lookupTransform("/map", "/base_link", rospy.Time(0))
+        position, rotation = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
         self.location_pose_x = position[0]
         self.location_pose_y = position[1]
         self.location_pose_z = rotation[2]
