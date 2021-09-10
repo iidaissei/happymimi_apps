@@ -23,9 +23,10 @@ class BaseControl():
         start_time = time.time()
         end_time = time.time() + 0.15 # 誤差をカバーする0.15
         while end_time - start_time <= self.target_time:
+            print(end_time - start_time)
             self.twist_pub.publish(self.twist_value)
             end_time = time.time()
-            self.rate.sleep()
+            #self.rate.sleep() これを入れるとwhile内が毎回１秒停止される
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = 0.0
         self.twist_pub.publish(self.twist_value)
