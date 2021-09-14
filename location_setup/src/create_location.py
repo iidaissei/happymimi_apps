@@ -9,7 +9,7 @@ import subprocess as sp
 import rospy
 import roslib.packages
 from location_setup.srv import LocationSetup, LocationSetupResponse
-from location_setup import AddLoc, SaveLoc
+from locsetup import AddLoc, SaveLoc
 
 map_path = roslib.packages.get_pkg_dir("happymimi_navigation")
 
