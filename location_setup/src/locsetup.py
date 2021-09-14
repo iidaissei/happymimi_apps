@@ -27,11 +27,12 @@ def checkName(name, search_target):
 
 class AddLoc:
     loc_dict = {}
+    def __init__(self):
+        self.tf = TransformListener()
 
     def createLocDict(self, loc_name):
         cur_loc_dict = {}
-        tf = TransformListener()
-        position, rotation = tf.lookupTransform('/map', 'base_link', rospy.Time(0))
+        position, rotation = self.tf.lookupTransform("/map", "/base_link", rospy.Time(0))
         cur_loc_dict[loc_name] = [position[0], position[1], rotation[2], rotation[3]]
         # position, rotation = tf.lookupTransform(map_frame, base_link_frame, rospy.Time(0))
         # cur_loc_dict[loc_name] = [1, 2, 3, 4]
@@ -57,6 +58,6 @@ class SaveLoc:
         rosparam.dump_params(merge_path, '/location_dict')
         print rosparam.get_param('/location_dict')
         rospy.loginfo("The location was saved successfully!")
-        AddLoc.loc_dict = {} 
+        AddLoc.loc_dict = {}
         return True
 
