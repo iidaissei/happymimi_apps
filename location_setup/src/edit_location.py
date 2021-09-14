@@ -9,7 +9,7 @@ import rospy
 import rosparam
 import roslib.packages
 from location_setup.srv import LocationSetup, LocationSetupResponse
-from location_setup import AddLoc, SaveLoc
+from locsetup import AddLoc, SaveLoc
 
 
 def callback_srv(srv_req):
