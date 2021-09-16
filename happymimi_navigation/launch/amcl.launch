@@ -17,4 +17,12 @@
   <!-- Move base -->
   <include file="$(find happymimi_navigation)/launch/include/move_base.launch.xml"/>
 
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true" output="screen"> -->
+  <!--   <rosparam command="load" file="$(find happymimi_bringup)/config/localization_param.yaml" /> -->
+  <!--   <!-1- <param name="tf_prefix" value="odom"/> -1-> -->
+  <!--   <remap from="/odometry/filtered" to="/fusion/odom" /> -->
+  <!--   <remap from="odom0" to="/odom" /> -->
+  <!--   <remap from="imu0"  to="imu/data" /> -->
+  <!-- </node> -->
+
 </launch>
