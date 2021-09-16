@@ -2,13 +2,13 @@
 DWAPlannerROS:
   acc_lim_x: 1.0
   acc_lim_y: 0.0
-  acc_lim_th: 0.3
+  acc_lim_theta: 1.0
 
   max_vel_theta: 0.5
   min_vel_theta: 0.0
 
-  max_vel_trans: 0.30
-  min_vel_trans: 0.0
+  max_vel_trans: 0.5
+  min_vel_trans: 0.1
 
   max_vel_x: 0.5
   min_vel_x: 0.0
@@ -18,7 +18,6 @@ DWAPlannerROS:
   # max_rot_vel: 1.0
   # min_rot_vel: 0.4
   # 停止と判断する並進速度以下の速度
-  trans_stopped_vel: 0.1
   theta_stopped_vel: 0.1
 
 # Goal Tolerance Parameters
@@ -27,9 +26,9 @@ DWAPlannerROS:
   latch_xy_goal_tolerance: false
 
 # Forward Simulation Parameters
-  sim_time: 2.0       # 1.7
+  sim_time: 1.0       # 1.7
   # sim_granularity: 0.025
-  vx_samples: 10       # 3
+  vx_samples: 6       # 3
   vy_samples: 1       # diff drive robot, there is only one sample
   vtheta_samples: 20  # 20
 
@@ -50,4 +49,4 @@ DWAPlannerROS:
   publish_traj_pc : true
   publish_cost_grid_pc: true
   global_frame_id: /odom
-  # global_frame_id: /map
+  # global_frame_id: /fusion/odom
