@@ -19,7 +19,7 @@ class EnterRoomServer():
         service = rospy.Service('/enter_room_server', EnterRoomGen2, self.execute)
         rospy.loginfo("Ready to set enter_room_server")
         # Publisher
-        self.twist_pub = rospy.Publisher('/vmegarover/diff_drive_controller/cmd_vel', Twist, queue_size = 1)
+        self.twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         # Subscriber
         rospy.Subscriber('/scan', LaserScan, self.laserCB)
         # Value
