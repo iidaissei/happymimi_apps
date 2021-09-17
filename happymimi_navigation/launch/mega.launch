@@ -8,21 +8,11 @@
   <!-- <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.1 0 0.08 3.14159 3.14159 0 base_link lrf_link 1" /> -->
 
   <!-- LRFのデバイスドライバノード -->
-  <node name="urg_node" pkg="urg_node"
-    type="urg_node" >
-    <param name="serial_port" value="/dev/ttyACM0" />　<!-- デバイスドライバファイルのパス -->
-    <param name="frame_id" value="lrf_link" />
-    <param name="angle_min" value="-1.57" />　<!-- LRFの有効検出角度（下限） -->
-    <param name="angle_max" value="1.57" />  <!-- LRFの有効検出角度（上限） -->
-  </node>
 
-  
- 
   <!-- mapサーバー -->
-  <arg name="map_file" default="$(find happymimi_navigation)/maps/0916.yaml"/>　<!--マップファイルのパスの指定 -->
+  <arg name="map_file" default="$(find happymimi_navigation)/maps/0914.yaml"/>　<!--マップファイルのパスの指定 -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
- 
-  <!-- 
+  <!--
     自己位置推定ノード amcl
     各パラメータについては http://wiki.ros.org/amcl
     を参照してください。
