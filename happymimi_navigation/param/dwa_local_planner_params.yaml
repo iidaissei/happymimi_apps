@@ -1,32 +1,39 @@
 # Robot Configuration Parameters - MEGAROVER
 DWAPlannerROS:
+
+  # 座標軸毎の最大加速度、最大旋回加速度
   acc_lim_x: 0.5
   acc_lim_y: 0.0
+  acc_lim_trans: 0.5
   acc_lim_theta: 0.5
 
-  max_vel_theta: 0.5
-  min_vel_theta: 0.0
-
-  max_vel_trans: 0.5
-  min_vel_trans: 0.0
-
+  # 座標軸毎の最大、最小速度
   max_vel_x: 0.5
   min_vel_x: 0.0
   max_vel_y: 0.0
   min_vel_y: 0.0
 
+  # 最大、最小並進速度
+  max_vel_trans: 0.5
+  min_vel_trans: 0.0
+
+  # 最大、最小旋回速度
+  max_vel_theta: 0.7
+  min_vel_theta: 0.0
+
   # 停止と判断する並進速度以下の速度
+  trans_stopped_vel: 0.1
   theta_stopped_vel: 0.1
 
-# Goal Tolerance Parameters
-  yaw_goal_tolerance: 0.05 # default
-  xy_goal_tolerance: 0.10
-  latch_xy_goal_tolerance: false
+  # 目標許容パラメータ
+  yaw_goal_tolerance: 0.17 # rad
+  xy_goal_tolerance: 0.20
+  # latch_xy_goal_tolerance: false
 
 # Forward Simulation Parameters
   sim_time: 1.7       # 1.7
   # sim_granularity: 0.025
-  vx_samples: 6       # 3
+  vx_samples: 5       # 3
   vy_samples: 1       # diff drive robot, there is only one sample
   vtheta_samples: 20  # 20
 
@@ -46,4 +53,5 @@ DWAPlannerROS:
 # Debugging
   publish_traj_pc : true
   publish_cost_grid_pc: true
-  global_frame_id: /odom
+  # global_frame_id: /odom
+  global_frame_id: /map
