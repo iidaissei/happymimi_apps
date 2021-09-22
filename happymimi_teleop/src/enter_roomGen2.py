@@ -34,12 +34,12 @@ class EnterRoomServer():
         vel.linear.x = srv_req.velocity
         target_dist = srv_req.distance
         safe_dist = 1.0
-        target_time = target_dist / vel.linear.x # 速度と進行距離から実行時間を計算
+        target_time = (self.front_laser_dist + target_dist) / vel.linear.x # 速度と進行距離から実行時間を計算
         start_time = rospy.get_time() # 実行開始時間を格納
 
         while not rospy.is_shutdown():
             if self.front_laser_dist >= safe_dist and (rospy.get_time() - start_time) <= target_time: # 安全距離かつ実行時間内のとき実行
-                # print "now_time = ", rospy.get_time() - start_time #経過時間確認用
+                print "now_time = ", rospy.get_time() - start_time #経過時間確認用
                 self.twist_pub.publish(vel)
             elif self.front_laser_dist <= safe_dist: # 障害物があるとき実行
                 print "Please open the door"
