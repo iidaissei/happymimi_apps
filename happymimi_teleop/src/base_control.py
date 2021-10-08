@@ -32,12 +32,14 @@ class BaseControl():
         self.twist_pub.publish(self.twist_value)
 
     def translateDist(self, dist, speed = 0.2):
+        speed = abs(speed)
         self.target_time = abs(dist / speed)
         self.twist_value.linear.x = dist/abs(dist)*speed
         self.twist_value.angular.z = 0.0
         self.publishTwist()
 
     def rotateAngle(self, deg, speed = 0.5):
+        speed = abs(speed)
         self.target_time = abs(math.radians(deg) / speed)
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = deg/abs(deg)*speed
