@@ -23,7 +23,7 @@ set_locationは、ロケーションの登録を行うROSサービスサーバ�
 | state | Contents |
 |---|---|
 | add | 現在地の座標を`name`の名前で登録する |
-| save | ロケーションデータとマップを保存する |
+| save | ロケーションデータとマップを`name`の名前で保存する |
 
 
 
@@ -38,15 +38,23 @@ set_locationは、ロケーションの登録を行うROSサービスサーバ�
 ## Usage
 
 ### set_locationサービスサーバ
-**コマンドラインから登録する時**
-ロボットとセンサの起動
-`roslaunch happymimi_bringup minimal.launch`
+
+### コマンドラインからの登録作業
+
+ロボットとセンサの起動<br>
+`roslaunch happymimi_bringup minimal.launch`<br>
 `roslaunch happymimi_bringup sensor.launch`
-gmapping（地図生成アプリ）の起動
-`roslaunch happymimi_navigaiton gmapping.laucnh`
-set_locationの起動
-`rosser`
-- save
-> ロケーションの保存処理を実行します。
-> Requestの`name`[happymimi_params/params/location]()に保存します。
-> また、同名のマップファイルを保存します。
+
+gmapping（地図生成アプリ）の起動<br>
+`roslaunch happymimi_navigaiton gmapping.laucnh`<br>
+
+set_locationの起動<br>
+`rosrun happymimi_navigaiton set_location.py`<br>
+
+ロケーションの追加<br>
+`rosservice call /set_location "state: 'add' name: '<location_name>' "`
+
+ロケーションの保存<br>
+`rosservice call /set_location "state: 'save' name: '<file_name>' "`
+
+---
