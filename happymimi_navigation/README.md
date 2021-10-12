@@ -7,7 +7,6 @@ happymimi_navigationは、happymimiの自律走行機能を実現するための
 - ロケーションの登録サービスサーバ
 - ロケーションへのナビゲーションサービスサーバ
 
-
 ## Description
 
 ### set_locationサービスサーバ
@@ -26,13 +25,14 @@ set_locationは、ロケーションの登録を行うROSサービスサーバ�
 | save | ロケーションデータとマップを`name`の名前で保存する |
 
 
-
 ### navi_locationサービスサーバ
-[/location_dict]()をもとに、ロケーションまでナビゲーションするROSサービスサーバ
+navi_locationは、`/location_dict`をもとにナビゲーションを実行するROSサービスサーバです。<br>
+※/location_dictは、[happymimi_params/params/location]()の辞書型データをROSパラメータとして登録したものです。
 
+**navi_locationの仕様**
 | Name | Type | Request | Result |
 |---|---|---|---|
-| /navi_location | [NaviLocation]()| string型の`location_name` | bool型の`result` |
+| /navi_location | [NaviLocation]()| string型: `location_name` | bool型: `result` |
 
 
 ## Usage
@@ -41,20 +41,32 @@ set_locationは、ロケーションの登録を行うROSサービスサーバ�
 
 ### コマンドラインからの登録作業
 
-ロボットとセンサの起動<br>
-`roslaunch happymimi_bringup minimal.launch`<br>
-`roslaunch happymimi_bringup sensor.launch`
+ロボットとセンサの起動
+```
+$ roslaunch happymimi_bringup minimal.launch
+```
+```
+$ roslaunch happymimi_bringup sensor.launch
+```
 
-gmapping（地図生成アプリ）の起動<br>
-`roslaunch happymimi_navigaiton gmapping.laucnh`<br>
+gmapping（地図生成アプリ）の起動
+```
+$ roslaunch happymimi_navigaiton gmapping.laucnh
+```
 
-set_locationの起動<br>
-`rosrun happymimi_navigaiton set_location.py`<br>
+set_locationの起動
+```
+$ rosrun happymimi_navigaiton set_location.py
+```
 
-ロケーションの追加<br>
-`rosservice call /set_location "state: 'add' name: '<location_name>' "`
+ロケーションの追加
+```
+$ rosservice call /set_location "state: 'add' name: '<location_name>'
+```
 
-ロケーションの保存<br>
-`rosservice call /set_location "state: 'save' name: '<file_name>' "`
+ロケーションの保存
+```
+$ rosservice call /set_location "state: 'save' name: '<file_name>'
+```
 
 ---
