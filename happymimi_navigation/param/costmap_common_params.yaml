@@ -52,6 +52,6 @@ obstacle_layer:
 
 inflation_layer:
   enabled: true
-  inflation_radius: 0.30
+  inflation_radius: 0.35
 static_layer:
   enabled: true

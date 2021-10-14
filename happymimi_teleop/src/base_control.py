@@ -23,22 +23,22 @@ class BaseControl():
         start_time = time.time()
         end_time = time.time() + 0.15 # 誤差をカバーする0.15
         while end_time - start_time <= self.target_time:
-            print(end_time - start_time)
+            #print(end_time - start_time)
             self.twist_pub.publish(self.twist_value)
             end_time = time.time()
-            #self.rate.sleep() これを入れるとwhile内が毎回１秒停止される
+            self.rate.sleep()# これを入れるとwhile内が毎回１秒停止される
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = 0.0
         self.twist_pub.publish(self.twist_value)
 
     def translateDist(self, dist, speed = 0.2):
         self.target_time = abs(dist / speed)
-        self.twist_value.linear.x = speed
+        self.twist_value.linear.x = dist/abs(dist)*speed
         self.twist_value.angular.z = 0.0
         self.publishTwist()
 
     def rotateAngle(self, deg, speed = 0.5):
         self.target_time = abs(math.radians(deg) / speed)
         self.twist_value.linear.x = 0.0
-        self.twist_value.angular.z = speed
+        self.twist_value.angular.z = deg/abs(deg)*speed
         self.publishTwist()
