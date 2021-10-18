@@ -1,7 +1,6 @@
 # local costmap params for MEGAROVER
 local_costmap:
   global_frame: odom
-  # global_frame: /fusion/odom
   robot_base_frame: /base_footprint
   update_frequency: 5.0
   publish_frequency: 2.0

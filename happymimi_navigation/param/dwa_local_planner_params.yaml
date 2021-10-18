@@ -2,23 +2,23 @@
 DWAPlannerROS:
 
   # 座標軸毎の最大加速度、最大旋回加速度
-  acc_lim_x: 0.5
+  acc_lim_x: 0.4
   acc_lim_y: 0.0
-  acc_lim_trans: 0.5
-  acc_lim_theta: 0.5
+  acc_lim_trans: 0.1
+  acc_lim_theta: 0.1
 
   # 座標軸毎の最大、最小速度
-  max_vel_x: 0.5
+  max_vel_x: 0.3
   min_vel_x: 0.0
   max_vel_y: 0.0
   min_vel_y: 0.0
 
   # 最大、最小並進速度
-  max_vel_trans: 0.5
+  max_vel_trans: 0.3
   min_vel_trans: 0.0
 
   # 最大、最小旋回速度
-  max_vel_theta: 0.7
+  max_vel_theta: 0.2
   min_vel_theta: 0.0
 
   # 停止と判断する並進速度以下の速度
