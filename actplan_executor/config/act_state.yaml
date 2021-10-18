@@ -1,7 +1,9 @@
 {'go':'move',
  'approach':'move',
+ 'follow':'move',
  'grasp':'mani',
  'place':'mani',
  'give':'mani',
- 'search':'search',
- 'speak':'speak'}
+ 'find':'find',
+ 'speak':'voice',
+ 'answer':'voice'}
