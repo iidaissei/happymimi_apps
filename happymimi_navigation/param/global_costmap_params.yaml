@@ -2,14 +2,15 @@
 global_costmap:
   global_frame: /map
   robot_base_frame: /base_footprint
-  update_frequency: 1.0
-  publish_frequency: 0.5
+  update_frequency: 2.0
+  # publish_frequency: 2.0
   transform_tolerance: 0.5
   plugins:
     - {name: static_layer, type: "costmap_2d::StaticLayer"}
     - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
   static_layer:
-    map_topic: /map
-    track_unknown_space: false
-    subscribe_to_updates: true
+      enebled: true
+  #   map_topic: /map
+  #   track_unknown_space: false
+  #   subscribe_to_updates: true

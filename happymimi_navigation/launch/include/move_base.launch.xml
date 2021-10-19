@@ -16,7 +16,7 @@
     <rosparam file="$(find happymimi_navigation)/param/dwa_local_planner_params.yaml" command="load" />
     <rosparam file="$(find happymimi_navigation)/param/move_base_params.yaml" command="load" />
     <rosparam file="$(find happymimi_navigation)/param/global_planner_params.yaml" command="load" />
-    <!-- <rosparam file="$(find happymimi_navigation)/param/navfn_global_planner_params.yaml" command="load" /> -->
+    <rosparam file="$(find happymimi_navigation)/param/navfn_global_planner_params.yaml" command="load" />
     <!-- external params file that could be loaded into the move_base namespace -->
 
     <!-- reset frame_id parameters using user input data -->

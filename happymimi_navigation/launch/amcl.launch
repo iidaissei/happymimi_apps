@@ -5,7 +5,7 @@
   <!-- <include file="$(find happymimi_bringup)/launch/sensor.launch" /> -->
 
   <!-- Locationの設定＆マップの読み込み -->
-  <arg name="map_name" default="0914"/>
+  <arg name="map_name" default="rcap_test_1"/>
   <rosparam file="$(find happymimi_params)/param/location/$(arg map_name).yaml"
             command="load" ns="/location_dict" />
   <node name="map_server" pkg="map_server" type="map_server"

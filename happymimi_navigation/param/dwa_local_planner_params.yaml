@@ -1,24 +1,24 @@
 # Robot Configuration Parameters - MEGAROVER
 DWAPlannerROS:
-
   # 座標軸毎の最大加速度、最大旋回加速度
-  acc_lim_x: 0.4
+  acc_lim_x: 1.0
   acc_lim_y: 0.0
   acc_lim_trans: 0.1
-  acc_lim_theta: 0.1
+  # acc_lim_theta: 0.4
+  acc_lim_th: 0.3
 
   # 座標軸毎の最大、最小速度
-  max_vel_x: 0.3
+  max_vel_x: 0.5
   min_vel_x: 0.0
   max_vel_y: 0.0
   min_vel_y: 0.0
 
   # 最大、最小並進速度
-  max_vel_trans: 0.3
+  max_vel_trans: 0.5
   min_vel_trans: 0.0
 
   # 最大、最小旋回速度
-  max_vel_theta: 0.2
+  max_vel_theta: 0.6
   min_vel_theta: 0.0
 
   # 停止と判断する並進速度以下の速度
@@ -26,33 +26,33 @@ DWAPlannerROS:
   theta_stopped_vel: 0.1
 
   # 目標許容パラメータ
-  yaw_goal_tolerance: 0.17 # rad
+  yaw_goal_tolerance: 0.3 # rad
   xy_goal_tolerance: 0.20
   # latch_xy_goal_tolerance: false
+  latch_xy_goal_tolerance: true
 
 # Forward Simulation Parameters
-  sim_time: 1.7       # 1.7
-  # sim_granularity: 0.025
-  vx_samples: 5       # 3
+  sim_time: 2.0       # 1.7
+  sim_granularity: 0.05
+  vx_samples: 10       # 3
   vy_samples: 1       # diff drive robot, there is only one sample
   vtheta_samples: 20  # 20
 
 # Trajectory Scoring Parameters
-  path_distance_bias: 32.0      # 32.0   - weighting for how much it should stick to the global path plan
+  path_distance_bias: 72.0      # 32.0   - weighting for how much it should stick to the global path plan
   goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
   # occdist_scale: 0.01            # 0.01   - weighting for how much the controller should avoid obstacles
-  occdist_scale: 0.06            # 0.01   - weighting for how much the controller should avoid obstacles
-  forward_point_distance: 0.325 # 0.325  - how far along to place an additional scoring point
-  stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
+  occdist_scale: 0.5            # 0.01   - weighting for how much the controller should avoid obstacles
+  forward_point_distance: 0.1 # 0.325  - how far along to place an additional scoring point
+  # stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
   scaling_speed: 0.25           # 0.25   - absolute velocity at which to start scaling the robot's footprint
   max_scaling_factor: 0.2       # 0.2    - how much to scale the robot's footprint when at speed.
 
 # Oscillation Prevention Parameters
   oscillation_reset_dist: 0.05  # 0.05   - how far to travel before resetting oscillation flags
-  oscillation_reset_angle: 0.05  # 0.05   - how far to travel before resetting oscillation flags
+  # oscillation_reset_angle: 0.05  # 0.05   - how far to travel before resetting oscillation flags
 
 # Debugging
   publish_traj_pc : true
   publish_cost_grid_pc: true
   global_frame_id: /odom
-  # global_frame_id: /map
