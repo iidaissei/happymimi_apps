@@ -1,6 +1,6 @@
 # costmap common params for MEGAROVER
 max_obstacle_height: 1.8  # assume something like an arm is mounted on top of the robot
-footprint: [[0.13, -0.19], [0.13, 0.19], [-0.20, 0.19], [-0.20, -0.19]]
+footprint: [[0.13, -0.20], [0.13, 0.20], [-0.20, 0.20], [-0.20, -0.20]]
 
 obstacle_layer:
   enabled:              true
@@ -52,6 +52,6 @@ obstacle_layer:
 
 inflation_layer:
   enabled: true
-  inflation_radius: 0.25
+  inflation_radius: 0.40
 # static_layer:
   # enabled: true
