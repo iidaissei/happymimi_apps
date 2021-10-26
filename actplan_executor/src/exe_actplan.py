@@ -21,11 +21,11 @@ from happymimi_recognition_msgs.srv import RecognitionCount
 from happymimi_voice_msgs.srv import TTS
 
 # speak
-tts_srv = rospy.ServiceProxy('/tts', TTS)
+# tts_srv = rospy.ServiceProxy('/tts', TTS)
 
 class DecideAction(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes = ['move', 'mani', 'find', 
+        smach.State.__init__(self, outcomes = ['move', 'mani', 'find',
                                                'voice', 'all_finish'],
                              input_keys = ['goal_in', 'a_num_in', 'result_message'],
                              output_keys = ['a_action_out', 'a_data_out',
@@ -57,7 +57,7 @@ class Move(smach.State):
                              input_keys = ['action_in', 'data_in', 'num_in'],
                              output_keys = ['a_num_out'])
         # Service
-        self.navi_srv = rospy.ServiceProxy('navi_location', NaviLocation)
+        self.navi_srv = rospy.ServiceProxy('navi_location_server', NaviLocation)
 
     def execute(self, userdata):
         rospy.loginfo('Executing state: MOVE')
@@ -66,7 +66,7 @@ class Move(smach.State):
         data = userdata.data_in
         if name == 'go':
             # tts_srv('Move to ' + data)
-            # result = self.navi_srv(data)
+            result = self.navi_srv(data)
             result = True
         elif name == 'approach':
             # tts_srv('Move to ' + data)
@@ -79,10 +79,10 @@ class Move(smach.State):
             rospy.logerr("Action name failed")
             return 'move_finish'
         if result:
-            userdata.a_num_out = a_count + 1 
+            userdata.a_num_out = a_count + 1
             return 'move_finish'
         else:
-            userdata.a_num_out = 0 
+            userdata.a_num_out = 0
             return 'move_failed'
 
 
@@ -119,10 +119,10 @@ class Mani(smach.State):
             rospy.logerr("Action name failed")
             return 'mani_finish'
         if result:
-            userdata.a_num_out = a_count + 1 
+            userdata.a_num_out = a_count + 1
             return 'mani_finish'
         else:
-            userdata.a_num_out = 0 
+            userdata.a_num_out = 0
             return 'mani_failed'
 
 
@@ -156,12 +156,12 @@ class Find(smach.State):
             return 'find_finish'
         if result:
             # tts_srv("I found " + str(obj_num) + data)
-            userdata.a_num_out = a_count + 1 
+            userdata.a_num_out = a_count + 1
             userdata.obj_num_out = str(obj_num)
             return 'find_finish'
         else:
             # speak("I could't find " + data)
-            userdata.a_num_out = 0 
+            userdata.a_num_out = 0
             return 'find_failed'
 
 
@@ -185,7 +185,7 @@ class Voice(smach.State):
             # tts_srv(data)
             # WDYSみたいなサービスを呼ぶ
             result = True
-        userdata.a_num_out = a_count + 1 
+        userdata.a_num_out = a_count + 1
         return 'voice_finish'
 
 

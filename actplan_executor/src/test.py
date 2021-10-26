@@ -8,7 +8,7 @@
 import sys
 import rospy
 import actionlib
- 
+
 from actplan_executor.msg import APExecutorAction, APExecutorGoal
 
 def main():
@@ -19,8 +19,8 @@ def main():
     goal = APExecutorGoal()
 
     # action = ['go', 'grasp', 'go', 'give']
-    action = ['find', 'give', 'speak', 'answer']
-    data = ['any', 'red cup', 'operator', 'red cup']
+    action = ['go', 'go', 'go']
+    data = ['table_1', 'cupboard', 'operator']
     goal.action = action
     goal.data = data
 
