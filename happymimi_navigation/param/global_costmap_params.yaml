@@ -8,9 +8,7 @@ global_costmap:
   plugins:
     - {name: static_layer, type: "costmap_2d::StaticLayer"}
     - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
+    - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
   static_layer:
       enebled: true
-  #   map_topic: /map
-  #   track_unknown_space: false
-  #   subscribe_to_updates: true

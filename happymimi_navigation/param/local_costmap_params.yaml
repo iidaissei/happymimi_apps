@@ -4,7 +4,6 @@ local_costmap:
   robot_base_frame: /base_footprint
   update_frequency: 5.0
   publish_frequency: 3.0
-  # static_map: false
   rolling_window: true
   width: 3.0
   height: 3.0
@@ -12,5 +11,5 @@ local_costmap:
   transform_tolerance: 0.5
   plugins:
     - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
+    - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
-    # - {name: realsense_layer, type: "costmap_2d::VoxelLayer"}
