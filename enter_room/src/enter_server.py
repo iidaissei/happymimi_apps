@@ -39,7 +39,8 @@ class EnterRoomServer():
 
         while not rospy.is_shutdown():
             if self.front_laser_dist >= safe_dist and (rospy.get_time() - start_time) <= target_time: # 安全距離かつ実行時間内のとき実行
-                print "now_time = ", rospy.get_time() - start_time #経過時間確認用
+                #print "now_time = ", rospy.get_time() - start_time #経過時間確認用
+                rospy.sleep(0.1)
                 self.twist_pub.publish(vel)
             elif self.front_laser_dist <= safe_dist: # 障害物があるとき実行
                 print "Please open the door"
@@ -57,6 +58,6 @@ class EnterRoomServer():
             return EnterRoomGen2Response(result = False)
 
 if __name__ == '__main__':
-    rospy.init_node('enter_room')
+    rospy.init_node('enter_server')
     ers = EnterRoomServer()
     rospy.spin()

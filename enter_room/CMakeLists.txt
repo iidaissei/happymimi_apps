@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(happymimi_teleop)
+project(enter_room)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -56,11 +56,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#     FILES
-#     Service1.srv
-#     Service2.srv
-# )
+add_service_files(
+  DIRECTORY
+  srv
+  FILES
+  EnterRoom.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -106,7 +107,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES happymimi_teleop
+#  LIBRARIES enter_room
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -124,7 +125,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/happymimi_teleop.cpp
+#   src/${PROJECT_NAME}/enter_room.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -135,23 +136,21 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(happymimi_teleop src/joycon_teleop.cpp)
+# add_executable(${PROJECT_NAME}_node src/enter_room_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-# set_target_properties(happymimi_teleop
-                      # PROPERTIES OUTPUT_NAME joycon_teleop 
-                      # PREFIX "")
+# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(happymimi_teleop
-  # ${catkin_LIBRARIES}
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
 # )
 
 #############
@@ -201,7 +200,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_happymimi_teleop.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_enter_room.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
