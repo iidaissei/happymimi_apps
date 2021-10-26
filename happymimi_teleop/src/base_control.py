@@ -18,9 +18,9 @@ from geometry_msgs.msg import Twist
 class BaseControl():
     def __init__(self):
         # Publisher
-        self.twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
+        self.twist_pub = rospy.Publisher('/vmegarover/diff_drive_controller/cmd_vel', Twist, queue_size = 1)
         # Subscriber
-        rospy.Subscriber('/odom', Odometry, self.odomCB)
+        rospy.Subscriber('/vmegarover/diff_drive_controller/odom', Odometry, self.odomCB)
         # Value
         self.twist_value = Twist()
         self.target_time = 0.0
@@ -78,7 +78,7 @@ class BaseControl():
                 #print(end_time - start_time)
                 self.twist_pub.publish(self.twist_value)
                 end_time = time.time()
-                self.rate.sleep()# これを入れるとwhile内が毎回１秒停止される
+                #self.rate.sleep()# これを入れるとwhile内が毎回１秒停止される
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = 0.0
         self.twist_pub.publish(self.twist_value)
