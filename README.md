@@ -12,7 +12,7 @@
   - 安全でスムーズな自律走行
   - 目的地まで移動するためのROSサービスサーバ
 
-- ### [happymimi_teleop](./happymimi_teleoop)
+- ### [happymimi_teleop](./happymimi_teleop)
   > ロボットの足回り制御に関するパッケージ
   このパッケージでできること
   - 台車の前後進･左右回転制御
