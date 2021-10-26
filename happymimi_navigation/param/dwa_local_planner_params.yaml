@@ -11,7 +11,7 @@ DWAPlannerROS:
   min_vel_trans: 0.00
 
   # 座標軸毎の最大、最小速度
-  max_vel_x: 0.5
+  max_vel_x: 0.4
   min_vel_x: 0.0
   max_vel_y: 0.0
   min_vel_y: 0.0
