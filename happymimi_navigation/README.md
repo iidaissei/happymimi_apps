@@ -16,7 +16,7 @@ set_locationは、ロケーションの登録を行うROSサービスサーバ�
 **set_locationの仕様**
 | Name | Type | Request | Result |
 |---|---|---|---|
-| /set_location | [SetLocation]()| string型: `state`<br>string型: `name` | bool型: `result` |
+| /set_location_server | [SetLocation]()| string型: `state`<br>string型: `name` | bool型: `result` |
 
 **stateの種類**
 | state | Contents |
@@ -36,7 +36,7 @@ navi_locationは、`/location_dict`をもとにナビゲーションを実行す
 **navi_locationの仕様**
 | Name | Type | Request | Result |
 |---|---|---|---|
-| /navi_location | [NaviLocation]()| string型: `location_name` | bool型: `result` |
+| /navi_location_server | [NaviLocation]()| string型: `location_name` | bool型: `result` |
 
 
 ## Usage
