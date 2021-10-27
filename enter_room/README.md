@@ -15,4 +15,11 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 ### enter_room_server サービスサーバー
 ここではenter_roomをコマンドから実行する方法を紹介します。
 
-サービスサーバ[/enter_room_server]起動
+サービスサーバ/enter_room_server起動
+```
+$ rosrun enter_room enter_server.py
+```
+速度と距離を指定
+```
+$ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
+```
