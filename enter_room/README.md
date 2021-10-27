@@ -15,7 +15,7 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 ### enter_room_server サービスサーバー
 ここではenter_roomをコマンドから実行する方法を紹介します。
 
-サービスサーバ/enter_room_server起動
+サービスサーバ /enter_room_server起動
 ```
 $ rosrun enter_room enter_server.py
 ```
