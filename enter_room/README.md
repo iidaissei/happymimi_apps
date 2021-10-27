@@ -23,7 +23,7 @@ $ rosrun enter_room enter_server.py
 ```
 $ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
 ```
-**マスターでの使い方**
+**マスターでの使い方** </br>
 0.5m/sで1.0m進ませたいときは
 ```
 enter_room = rospy.ServiceProxy('/enter_room_server', EnterRoom)
