@@ -19,7 +19,7 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 ```
 $ rosrun enter_room enter_server.py
 ```
-速度と距離を指定
+距離(distance)と速度(velocity)を指定
 ```
 $ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
 ```
