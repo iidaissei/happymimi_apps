@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#--------------------------------------------------------------
+# Title: 足回り制御を行うPythonモジュール
+# Author: Issei Iida, Yusuke Kanazawa
+# Date: 2021/10/25
+# Memo: [rotateAngle()]はOdometryを使っています
+#--------------------------------------------------------------
+
 import rospy
 import time
 import math
@@ -18,10 +25,10 @@ class BaseControl():
         self.twist_value = Twist()
         self.target_time = 0.0
         self.rate = rospy.Rate(1.0)
-        self.quaternion = (0.0, 0.0, 0.0, 0.0)
-        self.current_euler = []
-        self.current_deg = 0.0
-        self.target_deg = 0.0
+        self.quaternion = (0.0, 0.0, 0.0, 0.0)   # クォータニオン (x, y, z, w)
+        self.current_euler = []   # オイラー角 [roll: x, Pitch: Y, Yaw: z]
+        self.current_deg = 0.0   # 現在の角度（度数法）
+        self.target_deg = 0.0   # 目標の角度（度数法）
         self.remain_deg = 0.0
         self.sub_target_deg = 0.0
 
@@ -71,7 +78,7 @@ class BaseControl():
                 #print(end_time - start_time)
                 self.twist_pub.publish(self.twist_value)
                 end_time = time.time()
-                self.rate.sleep()# これを入れるとwhile内が毎回１秒停止される
+                #self.rate.sleep()# これを入れるとwhile内が毎回１秒停止される
         self.twist_value.linear.x = 0.0
         self.twist_value.angular.z = 0.0
         self.twist_pub.publish(self.twist_value)

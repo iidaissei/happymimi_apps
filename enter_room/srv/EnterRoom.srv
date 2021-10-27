@@ -1,0 +1,6 @@
+# req
+float32 distance
+float32 velocity
+---
+# res
+bool result
