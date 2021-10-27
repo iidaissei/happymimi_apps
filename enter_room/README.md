@@ -12,7 +12,7 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 | Service | /enter_room_server | [EnterRoom](https://github.com/KIT-Happy-Robot/happymimi_apps/blob/develop/enter_room/srv/EnterRoom.srv) | float32型： `distance`,`velocity` | bool型： `result` |
 </br>
 
-**コマンドラインから使う** </br>
+### コマンドラインから使う
 サービスサーバ /enter_room_server起動
 ```
 $ rosrun enter_room enter_server.py
@@ -21,14 +21,12 @@ $ rosrun enter_room enter_server.py
 ```
 $ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
 ```
-</br>
 
-**プログラムから使う** </br>
-0.5m/sで1.0m進ませたいときは
+### プログラムから使う
+ex) 0.5m/sで1.0m進ませる
 ```
 from enter_room.srv import EnterRoom
 
 enter_room = rospy.ServiceProxy('/enter_room_server', EnterRoom)
 enter_room(1.0, 0.5)
 ```
-おしまい
