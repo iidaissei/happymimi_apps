@@ -7,8 +7,6 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 - ドアが開いたら、指定速度で指定距離進む
 
 ## Usage
-### サービスサーバーを起動
-```
-rosrun enter_room enter_server.py
-```
-
+|Communication|Name|Type|Request|Result|
+| :---: | :---: | :---: | :---: | :---: |
+| Service | /enter_room_server | [EnterRoom](https://github.com/KIT-Happy-Robot/happymimi_apps/blob/develop/enter_room/srv/EnterRoom.srv) | float32 `distance`,`velocity` | bool `result` |
