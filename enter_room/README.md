@@ -23,7 +23,7 @@ $ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
 ```
 
 ### プログラムから使う
-ex) 0.5m/sで1.0m進ませる
+0.5m/sで1.0m進ませる
 ```
 from enter_room.srv import EnterRoom
 
