@@ -21,7 +21,7 @@ from happymimi_recognition_msgs.srv import RecognitionCount
 from happymimi_voice_msgs.srv import TTS
 
 # speak
-# tts_srv = rospy.ServiceProxy('/tts', TTS)
+tts_srv = rospy.ServiceProxy('/tts', TTS)
 
 class DecideAction(smach.State):
     def __init__(self):
@@ -65,11 +65,12 @@ class Move(smach.State):
         name = userdata.action_in
         data = userdata.data_in
         if name == 'go':
-            # tts_srv('Move to ' + data)
+            print data
+            tts_srv('Move to ' + data)
             result = self.navi_srv(data)
             result = True
         elif name == 'approach':
-            # tts_srv('Move to ' + data)
+            tts_srv('Move to ' + data)
             # 人接近処理を追加する
             result = True
         elif name == 'follow':
@@ -97,6 +98,7 @@ class Mani(smach.State):
         self.head_pub = rospy.Publisher('/servo/head', Float64, queue_size = 1)
         # Param
         self.object_dict = rosparam.get_param('/object_mapping')
+        self.grasp_msg = RecognitionToGrasping()
 
     def execute(self, userdata):
         rospy.loginfo('Executing state: MANI')
@@ -104,16 +106,17 @@ class Mani(smach.State):
         name = userdata.action_in
         data = userdata.data_in
         if name == 'grasp':
-            obj = self.object_dict[data]
-            # result = self.grasp_srv(obj).result
+            # obj = self.object_dict[data]
+            self.grasp_msg.target_name = 'cup'
+            result = self.grasp_srv(target_name='cup').result
             result = True
         elif name == 'place':
-            # result = self.arm_srv('place').result
+            result = self.arm_srv('place').result
             result = True
         elif name == 'give':
-            # self.head_pub(20)
-            # tts_srv('Here you are')
-            # result = self.arm_srv('give').result
+            self.head_pub.publish(-10)
+            tts_srv('Here you are')
+            result = self.arm_srv('give').result
             result = True
         else:
             rospy.logerr("Action name failed")
@@ -144,9 +147,9 @@ class Find(smach.State):
         data = userdata.data_in
         if name == 'find':
             obj = self.obj_map[data]
-            # self.head_pub(-20)
+            self.head_pub(-15)
             rospy.sleep(1.5)
-            # tts_srv('I find ' + data)
+            tts_srv('I find ' + data)
             # obj_num = self.count_srv(obj).num
             obj_num = 1
             result = bool(obj_num)
@@ -155,12 +158,12 @@ class Find(smach.State):
             rospy.logerr("Action name failed")
             return 'find_finish'
         if result:
-            # tts_srv("I found " + str(obj_num) + data)
+            tts_srv("I found " + str(obj_num) + data)
             userdata.a_num_out = a_count + 1
             userdata.obj_num_out = str(obj_num)
             return 'find_finish'
         else:
-            # speak("I could't find " + data)
+            tts_srv("I could't find " + data)
             userdata.a_num_out = 0
             return 'find_failed'
 
@@ -179,7 +182,7 @@ class Voice(smach.State):
         data = userdata.data_in
         obj_num = userdata.obj_num_in
         if name == 'speak':
-            # tts_srv(data)
+            tts_srv(data)
             result = True
         elif name == 'answer':
             # tts_srv(data)
