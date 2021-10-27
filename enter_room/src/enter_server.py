@@ -41,11 +41,11 @@ class EnterRoomServer():
             safe_dist = 1.0
             target_dist = srv_req.distance + self.front_laser_dist
 
-            #self.tts_srv('Prease open the door')
+            self.tts_srv('Prease open the door')
             print "Prease open the door"
             while self.front_laser_dist <= safe_dist:
                 rospy.sleep(0.1)
-            #self.tts_srv('Thank you')
+            self.tts_srv('Thank you')
             self.base_control.translateDist(target_dist, srv_req.velocity)
             return EnterRoomResponse(result = True)
         except rospy.ROSInterruptException:

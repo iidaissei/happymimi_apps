@@ -18,9 +18,9 @@ from geometry_msgs.msg import Twist
 class BaseControl():
     def __init__(self):
         # Publisher
-        self.twist_pub = rospy.Publisher('/vmegarover/diff_drive_controller/cmd_vel', Twist, queue_size = 1)
+        self.twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         # Subscriber
-        rospy.Subscriber('/vmegarover/diff_drive_controller/odom', Odometry, self.odomCB)
+        rospy.Subscriber('/odom', Odometry, self.odomCB)
         # Value
         self.twist_value = Twist()
         self.target_time = 0.0
