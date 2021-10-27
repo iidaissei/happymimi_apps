@@ -19,8 +19,8 @@ def main():
     goal = APExecutorGoal()
 
     # action = ['go', 'grasp', 'go', 'give']
-    action = ['go', 'grasp', 'go', 'place']
-    data = ['cupboard', 'cup', 'table', 'cup']
+    action = ['go', 'go', 'grasp', 'go', 'give', 'go']
+    data = ['operator', 'table', 'cup', 'operator', 'cup', 'init_base']
     goal.action = action
     goal.data = data
 
