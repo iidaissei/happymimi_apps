@@ -24,7 +24,7 @@ class NaviLocationServer():
         # Service
         self.clear_costmap = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
         # Value
-        self.location_dict = rosparam.get_param('/location_dict')
+        self.location_dict = rosparam.get_param('/location')
         self.location_name = "null"
 
     def searchLocationName(self, srv_req):
