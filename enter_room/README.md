@@ -23,6 +23,7 @@ $ rosrun enter_room enter_server.py
 ```
 $ rosservice call /enter_room_server "distance: 0.0 velocity: 0.0"
 ```
+</br>
 
 **プログラム上での使い方** </br>
 0.5m/sで1.0m進ませたいときは
