@@ -10,9 +10,9 @@ enter_roomは、ドアが開いたときに入室するパッケージ
 |Communication|Name|Type|Request|Result|
 | :---: | :---: | :---: | :---: | :---: |
 | Service | /enter_room_server | [EnterRoom](https://github.com/KIT-Happy-Robot/happymimi_apps/blob/develop/enter_room/srv/EnterRoom.srv) | float32型： `distance`,`velocity` | bool型： `result` |
+</br>
 
----
-**コマンドラインから使う**
+**コマンドラインから使う** </br>
 サービスサーバ /enter_room_server起動
 ```
 $ rosrun enter_room enter_server.py
