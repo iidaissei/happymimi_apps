@@ -69,7 +69,7 @@ class NaviLocationServer():
 
 if __name__ == '__main__':
     rospy.init_node('navi_location_server', anonymous = True)
-    try: 
+    try:
         sls = NaviLocationServer()
         rospy.spin()
     except rospy.ROSInterruptException:
