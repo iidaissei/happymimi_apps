@@ -12,7 +12,7 @@
   <include file="$(find happymimi_navigation)/launch/include/move_base.launch.xml"/>
 
   <!-- navi location server -->
-  <node pkg="happymimi_navigation" type="navi_location.py" name="navi_location_server" clear_params="true" output="screen">
+  <node pkg="happymimi_navigation" type="navi_location.py" name="navi_location_server" clear_params="true" output="screen" />
 
 
  Robot localization
