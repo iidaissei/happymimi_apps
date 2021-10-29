@@ -90,8 +90,10 @@ class BaseControl():
         #print("final deg: " + str(self.current_deg))
 
     def translateDist(self, dist, speed = 0.2):
-        if type(dist) != type(float()):
+        try:
             dist = dist.data
+        except AttributeError:
+            pass
         speed = abs(speed)
         self.target_time = abs(dist / speed)
         self.twist_value.linear.x = dist/abs(dist)*speed
@@ -99,8 +101,10 @@ class BaseControl():
         self.publishTwist()
 
     def rotateAngle(self, deg, speed = 0.2):
-        if type(deg) != type(float()):
+        try:
             deg = deg.data
+        except AttributeError:
+            pass
         rospy.sleep(0.5)
         if deg >= 0.0:
             self.target_deg = self.current_deg + deg
