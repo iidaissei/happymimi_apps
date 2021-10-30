@@ -56,8 +56,6 @@ class Move(smach.State):
         smach.State.__init__(self, outcomes = ['move_finish', 'move_failed'],
                              input_keys = ['action_in', 'data_in', 'num_in'],
                              output_keys = ['a_num_out'])
-        # Publisher
-        self.head_pub = rospy.Publisher('/servo/head', Float64, queue_size = 1)
         # Service
         self.navi_srv = rospy.ServiceProxy('navi_location_server', NaviLocation)
 
@@ -68,7 +66,6 @@ class Move(smach.State):
         data = userdata.data_in
         if name == 'go':
             print data
-            self.head_pub.publish(20)
             tts_srv('Move to ' + data)
             result = self.navi_srv(data)
         elif name == 'approach':
@@ -76,7 +73,7 @@ class Move(smach.State):
             # 人接近処理を追加する
             result = True
         elif name == 'follow':
-            rospy.loginfo("follow")
+            tts_srv("start human following")
             result = True
         else:
             rospy.logerr("Action name failed")
@@ -108,15 +105,18 @@ class Mani(smach.State):
         name = userdata.action_in
         data = userdata.data_in
         if name == 'grasp':
-            # obj = self.object_dict[data]
+            obj = self.object_dict[data]
             # result = self.grasp_srv(target_name=obj).result
-            result = self.grasp_srv(target_name='cup').result
+            # result = self.grasp_srv(target_name='cup').result
+            result = True
         elif name == 'place':
-            result = self.arm_srv('place').result
+            # result = self.arm_srv('place').result
+            result = True
         elif name == 'give':
-            self.head_pub.publish(-15)
+            # self.head_pub.publish(-15)
             tts_srv('Here you are')
-            result = self.arm_srv('give').result
+            # result = self.arm_srv('give').result
+            result = True
         else:
             rospy.logerr("Action name failed")
             return 'mani_finish'
@@ -173,6 +173,8 @@ class Voice(smach.State):
                              input_keys = ['action_in', 'data_in',
                                            'num_in', 'obj_num_in'],
                              output_keys = ['a_num_out'])
+        # Publisher
+        self.head_pub = rospy.Publisher('/servo/head', Float64, queue_size = 1)
 
     def execute(self, userdata):
         rospy.loginfo('Executing state: VOICE')
@@ -180,6 +182,7 @@ class Voice(smach.State):
         name = userdata.action_in
         data = userdata.data_in
         obj_num = userdata.obj_num_in
+        self.head_pub.publish(-5)
         if name == 'speak':
             tts_srv(data)
             result = True
