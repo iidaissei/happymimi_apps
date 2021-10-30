@@ -7,7 +7,7 @@
 import rospy
 import rosparam
 import actionlib
-from std_msgs.msg import String
+from std_msgs.msg import String, Float64
 from std_srvs.srv import Empty
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from happymimi_navigation.srv import NaviLocation, NaviLocationResponse
@@ -21,6 +21,7 @@ class NaviLocationServer():
         self.ac = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
         # Publisher
         self.crloc_pub = rospy.Publisher('/current_location', String, queue_size = 1)
+        self.head_pub = rospy.Publisher('/servo/head', Float64, queue_size = 1)
         # Service
         self.clear_costmap = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
         # Value
@@ -51,6 +52,7 @@ class NaviLocationServer():
         self.clear_costmap()
         rospy.sleep(0.5)
         # start navigation
+        self.head_pub.publish(0)
         self.ac.wait_for_server()
         self.ac.send_goal(goal)
         # self.ac.wait_for_result()
