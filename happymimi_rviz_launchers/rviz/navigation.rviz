@@ -10,7 +10,7 @@ Panels:
         - /Local Map1
         - /PointCloud21
       Splitter Ratio: 0.5
-    Tree Height: 513
+    Tree Height: 363
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -156,18 +156,18 @@ Visualization Manager:
               base_link:
                 base_laser_link:
                   {}
+                camera_bottom_screw_frame:
+                  camera_link:
+                    camera_aligned_depth_to_color_frame:
+                      camera_color_optical_frame:
+                        {}
+                    camera_color_frame:
+                      {}
+                    camera_depth_frame:
+                      camera_depth_optical_frame:
+                        {}
                 spine_link:
                   neck_link:
-                    camera_bottom_screw_frame:
-                      camera_link:
-                        camera_aligned_depth_to_color_frame:
-                          camera_color_optical_frame:
-                            {}
-                        camera_color_frame:
-                          {}
-                        camera_depth_frame:
-                          camera_depth_optical_frame:
-                            {}
                     respeaker_link:
                       {}
       Update Interval: 0
@@ -472,25 +472,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 7.732179164886475
+      Distance: 9.609519004821777
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.057449221611023
-        Y: -1.4562575817108154
+        X: 3.2427778244018555
+        Y: -1.6964218616485596
         Z: 8.940696716308594e-7
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.1747967004776
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 3.1203997135162354
+      Yaw: 6.25858211517334
     Saved: ~
 Window Geometry:
   Displays:
