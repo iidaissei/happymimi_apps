@@ -15,12 +15,12 @@
   <node pkg="happymimi_navigation" type="navi_location.py" name="navi_location_server" clear_params="true" output="screen" />
 
 
- Robot localization
-  <node pkg="robot_localization" type="ekf_localization_node" name="robot_localization_ekf_node_odom" clear_params="true" output="screen">
-    <rosparam command="load" file="$(find happymimi_bringup)/config/localization_param.yaml" />
-    <param name="world_frame" value="odom" />
-    <remap from="odometry/filtered" to="fusion/odom" />
-    <!-- <remap from="odometry/filtered" to="/odom" /> -->
-  </node>
+ <!-- Robot localization -->
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="robot_localization_ekf_node_odom" clear_params="true" output="screen"> -->
+  <!--   <rosparam command="load" file="$(find happymimi_bringup)/config/localization_param.yaml" /> -->
+  <!--   <param name="world_frame" value="odom" /> -->
+  <!--   <remap from="odometry/filtered" to="fusion_odom" /> -->
+  <!--   <!-1- <remap from="odometry/filtered" to="/odom" /> -1-> -->
+  <!-- </node> -->
 
 </launch>
