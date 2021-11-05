@@ -1,0 +1,5 @@
+# req
+string[] loc_coord
+---
+# res
+bool result
