@@ -176,7 +176,7 @@ void Robot::move(double linear, double angular)
 {
     geometry_msgs::Twist cmd;
     cmd.linear.x  = linear;
-    cmd.angular.z = angular;
+    cmd.angular.z = -angular;
     cmd_vel_pub.publish(cmd);
 }
 

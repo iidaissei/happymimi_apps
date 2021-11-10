@@ -2,7 +2,7 @@
 <launch>
   <!-- Locationの設定＆マップの読み込み -->
   <arg name="map_name" default="rcap_test_1"/>
-  <rosparam file="$(find happymimi_params)/param/location/$(arg map_name).yaml" command="load" ns="/location" />
+  <rosparam file="$(find happymimi_params)/location/$(arg map_name).yaml" command="load" ns="/location" />
   <node name="map_server" pkg="map_server" type="map_server" args="$(find happymimi_navigation)/maps/$(arg map_name).yaml" />
 
   <!-- AMCL -->

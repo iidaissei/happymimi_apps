@@ -65,7 +65,7 @@ class SetLocationServer():
             param_path = roslib.packages.get_pkg_dir("happymimi_params")
             map_path = roslib.packages.get_pkg_dir("happymimi_navigation")
             rospy.set_param('/location_dict', self.location_dict)
-            rosparam.dump_params(param_path + '/param/location/' + file_name + '.yaml', '/location_dict')
+            rosparam.dump_params(param_path + '/location/' + file_name + '.yaml', '/location_dict')
             print rosparam.get_param('/location_dict')
             sp.Popen(['rosrun','map_server','map_saver','-f', map_path + '/maps/'+ file_name])
             rospy.loginfo("Saved as <" + file_name + ">")

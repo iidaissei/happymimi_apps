@@ -8,10 +8,13 @@ project(approach_person)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  actionlib
+  rosparam
   rospy
   smach
   smach_ros
+  genmsg
+  actionlib
+  actionlib_msgs
   message_generation
 )
 
@@ -67,10 +70,11 @@ add_action_files(
 )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  actionlib_msgs
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -103,8 +107,8 @@ add_action_files(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES approach_person
-#  CATKIN_DEPENDS actionlib rospy smach smach_ros
+ LIBRARIES approach_person
+ CATKIN_DEPENDS actionlib rospy smach smach_ros
 #  DEPENDS system_lib
 )
 
