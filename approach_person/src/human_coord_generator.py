@@ -52,8 +52,8 @@ class HumanCoordGeneratorSrv():
         self.ghc = GenerateHumanCoord()
         self.human_coord_dict = {}
 
-    def execute(self, srv_req):
-        dist_data = srv_req.dist_list
+    def execute(self):
+        dist_data = [[0.0, 0.0], [1.0, 0.0], [0.0, 0.0]]
         for i range(dist_data):
             frame_id = "human_" + str(i)
             # map座標系に変換してlocation dictを作成
