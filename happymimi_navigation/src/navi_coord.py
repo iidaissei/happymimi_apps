@@ -9,7 +9,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from happymimi_navigation.srv import NaviCoord, NaviCoordResponse
 
 
-class NaviLocationServer():
+class NaviCoordServer():
     def __init__(self):
         service = rospy.Service('navi_coord_server', NaviCoord, self.sendGoal)
         rospy.loginfo("Ready to navi_coord_server")
@@ -22,7 +22,8 @@ class NaviLocationServer():
         # Value
         self.location_name = "null"
 
-    def sendGoal(self, location_list):
+    def sendGoal(self, srv_req):
+        location_list = srv_req.loc_coord
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = 'map'
         goal.target_pose.header.stamp = rospy.Time.now()
@@ -46,7 +47,6 @@ class NaviLocationServer():
             navi_state = self.ac.get_state()
             if navi_state == 3:
                 rospy.loginfo('Navigation success!!')
-                self.crloc_pub.publish(self.location_name)
                 return NaviCoordResponse(result = True)
             elif navi_state == 4:
                 rospy.loginfo('Navigation Failed')
