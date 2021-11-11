@@ -65,6 +65,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate actions in the 'action' folder
 add_action_files(
+  DIRECTORY
+  action
   FILES
   PubHumanTF.action
 )
@@ -108,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
  LIBRARIES approach_person
- CATKIN_DEPENDS actionlib rospy smach smach_ros
+ CATKIN_DEPENDS actionlib actionlib_msgs rospy smach smach_ros
 #  DEPENDS system_lib
 )
 

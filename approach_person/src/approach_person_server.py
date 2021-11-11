@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import rospy
-import actionlib
 import rosparam
 import dynamic_reconfigure.client
-from happymimi_msgs.srv import StrTrg, StrTrgResponce
 from happymimi_navigation.srv import NaviCoord
+from happymimi_msgs.srv import StrTrg, StrTrgResponse
 
 
 class ApproachPersonServer():
@@ -28,30 +26,35 @@ class ApproachPersonServer():
         elif switch == 'defalt':
             goal_tolerance = {'xy_goal_tolerance':0.15, 'yaw_goal_tolerance':0.08}
             # realsense = {'enabled':True}
-        self.dwa_c.update_configuration(goal_tolerance_p)
-        self.realsense_c.update_configuration(realsense_p)
+        self.dwa_c.update_configuration(goal_tolerance)
+        # self.realsense_c.update_configuration(realsense)
         rospy.sleep(0.5)
 
     def GetCoord(self, human_name):
         if human_name in self.human_loc:
             self.human_coord = self.human_loc[human_name]
             print self.human_coord
-            return self.human_coord
+            return True
         else:
             rospy.logerr("<" + human_name + "> doesn't exist.")
             return False
 
     def execute(self, srv_req):
         self.setParams(switch = 'approach')
-        if self.GetCoord(srv_req.data):
-            self.navi_srv(self.human_coor:d)
+        result = self.GetCoord(srv_req.data)
+        if result:
+            self.navi_srv(loc_coord = self.human_coord)
         else:
-            return StrTrgResponce(result = False)
+            return StrTrgResponse(result = False)
             pass
         self.setParams(switch = 'defalt')
-        return StrTrgResponce(result = True)
+        return StrTrgResponse(result = True)
 
 
 if __name__ == '__main__':
     rospy.init_node('approach_person_server')
-    main()
+    try:
+        aps = ApproachPersonServer()
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass
