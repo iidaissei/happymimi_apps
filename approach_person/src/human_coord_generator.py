@@ -7,7 +7,7 @@ import rosparam
 import actionlib
 from geometry_msgs.msg import Point
 from happymimi_msgs.srv import SimpleTrg, SimpleTrgResponse
-from happymimi_recognition_msgs.srv import MultipleLocalizeRequest
+from happymimi_recognition_msgs.srv import MultipleLocalize
 from approach_person.msg import PubHumanTFAction, PubHumanTFGoal
 
 
@@ -59,12 +59,15 @@ class HumanCoordGeneratorSrv():
         rosparam.dump_params(param_path + '/location'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
     def execute(self, srv_req):
-        self.l10n_srv(target_name = "person")
-        dist_data = [[0.5, 0.5], [0.7, -0.5], [1.0, 0.0]]
-        for i in range(len(dist_data)):
+        # dist_data = [[0.5, 0.5], [0.7, -0.5], [1.0, 0.0]]
+        rospy.sleep(3.0)
+        dist_data = self.l10n_srv(target_name = "person")
+        dist_list = list(dist_data.points)
+        print dist_data.points[0].x
+        for i in range(len(dist_list)):
             frame_id = "human_" + str(i)
             # map座標系に変換してlocation dictを作成
-            human_coord = self.ghc.execute(frame_id, dist_data[i][0], dist_data[i][1])
+            human_coord = self.ghc.execute(frame_id, dist_data.points[i].x, dist_data.points[i].y)
             self.human_coord_dict.update(human_coord)
         self.saveDict()
         print self.human_coord_dict
