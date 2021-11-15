@@ -56,7 +56,7 @@ class HumanCoordGeneratorSrv():
     def saveDict(self):
         param_path = roslib.packages.get_pkg_dir("happymimi_params")
         rospy.set_param('/tmp_human_location', self.human_coord_dict)
-        rosparam.dump_params(param_path + '/location'  + 'tmp_human_location.yaml', '/tmp_human_location')
+        rosparam.dump_params(param_path + '/location/'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
     def execute(self, srv_req):
         # dist_data = [[0.5, 0.5], [0.7, -0.5], [1.0, 0.0]]
