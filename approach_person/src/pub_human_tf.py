@@ -3,9 +3,8 @@
 import rospy
 import tf2_ros
 import actionlib
-import actionlib_msgs
 import tf2_msgs.msg
-import geometry_msgs.msg
+from  geometry_msgs.msg import TransformStamped
 from approach_person.msg import PubHumanTFAction, PubHumanTFResult
 
 
@@ -21,7 +20,7 @@ class PubHumanTFAS():
         self.pub_tf = rospy.Publisher("/tf", tf2_msgs.msg.TFMessage, queue_size=1)
         # Value
         self.result = PubHumanTFResult()
-        self.t = geometry_msgs.msg.TransformStamped()
+        self.t = TransformStamped()
 
     def execute(self, req_msg):
         self.t.header.frame_id = "camera_depth_frame"
@@ -34,7 +33,6 @@ class PubHumanTFAS():
         self.t.transform.rotation.z = 0.0
         self.t.transform.rotation.w = 1.0
         while not rospy.is_shutdown():
-            # Run this loop at about 10Hz
             rospy.sleep(0.1)
             self.t.header.stamp = rospy.Time.now()
             tfm = tf2_msgs.msg.TFMessage([self.t])

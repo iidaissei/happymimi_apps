@@ -49,7 +49,8 @@ class HumanCoordGeneratorSrv():
     def __init__(self):
         hcg_srv = rospy.Service('human_coord_generator', SimpleTrg, self.execute)
         rospy.loginfo("Ready to human_coord_generator server")
-        self.l10n_srv = rospy.ServiceProxy('/recognition/multiple_localize', MultipleLocalize)
+        # Service
+        self.ml_srv = rospy.ServiceProxy('/recognition/multiple_localize', MultipleLocalize)
         self.ghc = GenerateHumanCoord()
         self.human_coord_dict = {}
 
@@ -59,11 +60,9 @@ class HumanCoordGeneratorSrv():
         rosparam.dump_params(param_path + '/location/'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
     def execute(self, srv_req):
-        # dist_data = [[0.5, 0.5], [0.7, -0.5], [1.0, 0.0]]
-        rospy.sleep(3.0)
-        dist_data = self.l10n_srv(target_name = "person")
+        dist_data = self.ml_srv(target_name = "person")
         dist_list = list(dist_data.points)
-        print dist_data.points[0].x
+        print dist_data.points
         for i in range(len(dist_list)):
             frame_id = "human_" + str(i)
             # map座標系に変換してlocation dictを作成
