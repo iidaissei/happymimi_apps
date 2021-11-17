@@ -16,7 +16,7 @@ class ApproachPersonServer():
         # Dynparam
         self.dwa_c = dynamic_reconfigure.client.Client('/move_base/DWAPlannerROS')
         # self.realsense_c = dynamic_reconfigure.client.Client('/move_base/local_costmap/realsense_layer')
-        self.human_loc = rosparam.get_param('/tmp_human_location')
+        # self.human_loc = rosparam.get_param('/tmp_human_location')
         self.human_coord = []
 
     def setParams(self, switch):
@@ -31,8 +31,9 @@ class ApproachPersonServer():
         rospy.sleep(0.5)
 
     def GetCoord(self, human_name):
-        if human_name in self.human_loc:
-            self.human_coord = self.human_loc[human_name]
+        human_loc = rospy.get_param('/tmp_human_location')
+        if human_name in human_loc:
+            self.human_coord = human_loc[human_name]
             print self.human_coord
             return True
         else:
