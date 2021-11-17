@@ -16,12 +16,11 @@ class ApproachPersonServer():
         # Dynparam
         self.dwa_c = dynamic_reconfigure.client.Client('/move_base/DWAPlannerROS')
         # self.realsense_c = dynamic_reconfigure.client.Client('/move_base/local_costmap/realsense_layer')
-        # self.human_loc = rosparam.get_param('/tmp_human_location')
         self.human_coord = []
 
     def setParams(self, switch):
         if switch == 'approach':
-            goal_tolerance = {'xy_goal_tolerance':0.5, 'yaw_goal_tolerance':6.2}
+            goal_tolerance = {'xy_goal_tolerance':0.7, 'yaw_goal_tolerance':6.2}
             # realsense = {'enabled':False}
         elif switch == 'defalt':
             goal_tolerance = {'xy_goal_tolerance':0.15, 'yaw_goal_tolerance':0.08}
