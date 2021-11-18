@@ -53,24 +53,42 @@ class HumanCoordGeneratorSrv():
         self.ml_srv = rospy.ServiceProxy('/recognition/multiple_localize', MultipleLocalize)
         self.ghc = GenerateHumanCoord()
         self.human_coord_dict = {}
+        self.map_range = rospy.get_param('/map_range')
 
     def saveDict(self):
         param_path = roslib.packages.get_pkg_dir("happymimi_params")
         rospy.set_param('/tmp_human_location', self.human_coord_dict)
         rosparam.dump_params(param_path + '/location/'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
+    def judgeMapin(self, coord):
+        rpy = tf.transformations.quaternion_from_euler(coord[0], coord[1], coord[2], coord[3])
+        if rpy[0] < self.map_range[min_x] or rpy[0] > self.map_range[max_x]:
+            jm_result = False
+        elif rpy[1] < self.map_range[min_y] or rpy[0] > self.map_range[max_y]:
+            jm_result False
+        else:
+            jm_result = True
+        return jm_result
+
     def execute(self, srv_req):
         dist_data = self.ml_srv(target_name = "person")
         dist_list = list(dist_data.points)
-        print dist_data.points
-        for i in range(len(dist_list)):
-            frame_id = "human_" + str(i)
-            # map座標系に変換してlocation dictを作成
-            human_coord = self.ghc.execute(frame_id, dist_data.points[i].x, dist_data.points[i].y)
-            self.human_coord_dict.update(human_coord)
-        self.saveDict()
-        print self.human_coord_dict
-        return SimpleTrgResponse(result = True)
+        list_len  = len(dist_list)
+        if list_len <= 1:
+            return SimpleTrgResponse(result = False)
+        else:
+            print dist_data.points
+            for i in range(len(dist_list)):
+                frame_id = "human_" + str(i)
+                # map座標系に変換してlocation dictを作成
+                human_dict = self.ghc.execute(frame_id, dist_data.points[i].x, dist_data.points[i].y)
+                if self.judgeMapin(human_dict[frame_id]):
+                    self.human_coord_dict.update(human_dict)
+                else:
+                    pass
+            self.saveDict()
+            print self.human_coord_dict
+            return SimpleTrgResponse(result = True)
 
 
 if __name__ == '__main__':
