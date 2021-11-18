@@ -3,6 +3,7 @@
 import rospy
 import roslib
 import tf2_ros
+import tf
 import rosparam
 import actionlib
 from geometry_msgs.msg import Point
@@ -61,11 +62,13 @@ class HumanCoordGeneratorSrv():
         rosparam.dump_params(param_path + '/location/'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
     def judgeMapin(self, coord):
-        rpy = tf.transformations.quaternion_from_euler(coord[0], coord[1], coord[2], coord[3])
-        if rpy[0] < self.map_range[min_x] or rpy[0] > self.map_range[max_x]:
+        rpy = tf.transformations.euler_from_quaternion((coord[0], coord[1], coord[2], coord[3]))
+        print "AAAAAA"
+        print rpy
+        if rpy[0] < self.map_range["min_x"] or rpy[0] > self.map_range["max_x"]:
             jm_result = False
-        elif rpy[1] < self.map_range[min_y] or rpy[0] > self.map_range[max_y]:
-            jm_result False
+        elif rpy[1] < self.map_range["min_y"] or rpy[0] > self.map_range["max_y"]:
+            jm_result = False
         else:
             jm_result = True
         return jm_result

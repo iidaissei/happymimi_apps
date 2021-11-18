@@ -1202,7 +1202,7 @@ void Robot::followHuman(cv::Mat input_image, bool movable = true)
                 (human.distance_ <=  kFollowMaxDistance))) { // 人が追跡距離内にいる場合
         //printf("人が追跡距離内にいる\n");
 
-        if(lost_count < 15) { // 0.45秒以上人を見失わなければ追跡する
+        if(lost_count < 30) { // 0.45秒以上人を見失わなければ追跡する15
             double tmp_speed = followLinearSpeed(human);
             human.last_linear_speed_ = tmp_speed; // 1時刻前の速度
             setLinearSpeed(tmp_speed);
@@ -1213,10 +1213,13 @@ void Robot::followHuman(cv::Mat input_image, bool movable = true)
                 defaultPos(&human);
                 human.distance_ = 999;
                 human.angle_    = 999;
-		std_msgs::Bool find_bool;
-		//find_bool.data = false;
+		//std_msgs::Bool find_bool;
+        //find_bool.data = false;
 		//find_human_pub.publish(find_bool);
-		printf("I lost the human");
+        std_msgs::String msg;
+        msg.data = "lost";
+        find_str_pub.publish(msg);
+        printf("I lost the human");
 	    }
         }
     } else { // 人が追跡距離外に出た場合
@@ -1378,6 +1381,7 @@ void Robot::init()
     cmd_vel_pub      = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 100);
     follow_human_sub = nh.subscribe("/follow_human", 100, &Robot::followHumanCallback,this);
     find_human_pub   = nh.advertise<std_msgs::Bool>("/find_human", 100); // true: find, false: lost
+    find_str_pub = nh.advertise<std_msgs::String>("/find_str", 100);
 }
 
 /**

@@ -242,6 +242,7 @@ private:
     ros::Subscriber laser_sub;
     ros::Subscriber odom_sub; // オドメトリのサブスクライバ,ver2
 
+    ros::Publisher find_str_pub;
     ros::Publisher find_human_pub;
     ros::Publisher lost_human_pub;//yamada
     ros::Subscriber follow_human_sub;
