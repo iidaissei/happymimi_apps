@@ -45,7 +45,6 @@ class ApproachPersonServer():
         if result:
             self.navi_srv(loc_coord = self.human_coord)
         else:
-            return StrTrgResponse(result = False)
             pass
         self.setParams(switch = 'defalt')
         return StrTrgResponse(result = True)
