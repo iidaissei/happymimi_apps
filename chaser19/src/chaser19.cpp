@@ -1202,7 +1202,7 @@ void Robot::followHuman(cv::Mat input_image, bool movable = true)
                 (human.distance_ <=  kFollowMaxDistance))) { // 人が追跡距離内にいる場合
         //printf("人が追跡距離内にいる\n");
 
-        if(lost_count < 30) { // 0.45秒以上人を見失わなければ追跡する15
+        if(lost_count < 15) { // 0.45秒以上人を見失わなければ追跡する15
             double tmp_speed = followLinearSpeed(human);
             human.last_linear_speed_ = tmp_speed; // 1時刻前の速度
             setLinearSpeed(tmp_speed);
