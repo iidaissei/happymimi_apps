@@ -37,7 +37,7 @@ obstacle_layer:
 #   track_unknown_space:  true
 #   obstacle_range: 3.5
 #   raytrace_range: 4.0
-#   publish_voxel_map: false
+#   publish_voxel_map: true
 #   observation_sources: point_cloud_sensor
 #   point_cloud_sensor:
 #     sensor_frame: camera_depth_frame
