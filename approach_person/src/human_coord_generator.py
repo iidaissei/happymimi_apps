@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
 import rospy
 import roslib
 import tf2_ros
@@ -10,6 +11,11 @@ from geometry_msgs.msg import Point
 from happymimi_msgs.srv import SimpleTrg, SimpleTrgResponse
 from happymimi_recognition_msgs.srv import MultipleLocalize
 from approach_person.msg import PubHumanTFAction, PubHumanTFGoal
+
+
+file_path = roslib.packages.get_pkg_dir('happymimi_teleop') + '/src/'
+sys.path.insert(0, file_path)
+from base_control import BaseControl
 
 
 class GenerateHumanCoord():
@@ -52,9 +58,14 @@ class HumanCoordGeneratorSrv():
         rospy.loginfo("Ready to human_coord_generator server")
         # Service
         self.ml_srv = rospy.ServiceProxy('/recognition/multiple_localize', MultipleLocalize)
-        self.ghc = GenerateHumanCoord()
-        self.human_coord_dict = {}
+        # Param
         self.map_range = rospy.get_param('/map_range')
+        # Value
+        self.dist_data = MultipleLocalize()
+        self.ghc = GenerateHumanCoord()
+        self.bc = BaseControl()
+        self.human_coord_dict = {}
+        self.h_dict_count = 0
 
     def saveDict(self):
         param_path = roslib.packages.get_pkg_dir("happymimi_params")
@@ -62,36 +73,57 @@ class HumanCoordGeneratorSrv():
         rosparam.dump_params(param_path + '/location/'  + 'tmp_human_location.yaml', '/tmp_human_location')
 
     def judgeMapin(self, coord):
-        rpy = tf.transformations.euler_from_quaternion((coord[0], coord[1], coord[2], coord[3]))
-        print "AAAAAA"
-        print rpy
-        if rpy[0] < self.map_range["min_x"] or rpy[0] > self.map_range["max_x"]:
+        rpy = coord
+        # print rpy
+        if coord[0] < self.map_range["min_x"] or coord[0] > self.map_range["max_x"]:
             jm_result = False
-        elif rpy[1] < self.map_range["min_y"] or rpy[0] > self.map_range["max_y"]:
+        elif coord[1] < self.map_range["min_y"] or coord[0] > self.map_range["max_y"]:
             jm_result = False
         else:
             jm_result = True
         return jm_result
 
+    def change_dict_key(self, d, old_key, new_key):
+        d[new_key] = d[old_key]
+        del d[old_key]
+
+    def createDict(self, list_len):
+        # map座標系に変換してlocation dictを作成
+        for i in range(list_len):
+            frame_id = "human_" + str(i)
+            # print "old_id: " + frame_id
+            human_dict = self.ghc.execute(frame_id, self.dist_data.points[i].x, self.dist_data.points[i].y)
+            if self.judgeMapin(human_dict[frame_id]):
+                new_id = "human_" + str(self.h_dict_count)
+                # print "new_id: " + new_id
+                # print human_dict
+                if frame_id in self.human_coord_dict:
+                    self.change_dict_key(human_dict, frame_id, new_id)
+                self.human_coord_dict.update(human_dict)
+                print self.human_coord_dict
+                self.h_dict_count += 1
+            else:
+                pass
+
     def execute(self, srv_req):
-        dist_data = self.ml_srv(target_name = "person")
-        dist_list = list(dist_data.points)
-        list_len  = len(dist_list)
-        if list_len <= 1:
-            return SimpleTrgResponse(result = False)
-        else:
-            print dist_data.points
-            for i in range(len(dist_list)):
-                frame_id = "human_" + str(i)
-                # map座標系に変換してlocation dictを作成
-                human_dict = self.ghc.execute(frame_id, dist_data.points[i].x, dist_data.points[i].y)
-                if self.judgeMapin(human_dict[frame_id]):
-                    self.human_coord_dict.update(human_dict)
-                else:
-                    pass
-            self.saveDict()
-            print self.human_coord_dict
-            return SimpleTrgResponse(result = True)
+        # while len(self.human_coord_dict) < 1:
+        for i in range(2):
+            print "count num: " + str(self.h_dict_count)
+            if i != 0:
+                self.bc.rotateAngle(-75)
+            # 人がいるか
+            rospy.sleep(1.0)
+            self.dist_data = self.ml_srv(target_name = "person")
+            list_len  = len(list(self.dist_data.points))
+            # print list_len
+            if list_len < 1:
+                # self.bc.rotateAngle(-75)
+                rospy.sleep(2.0)
+            else:
+                self.createDict(list_len)
+        self.saveDict()
+        print self.human_coord_dict
+        return SimpleTrgResponse(result = True)
 
 
 if __name__ == '__main__':
