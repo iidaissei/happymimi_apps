@@ -20,7 +20,7 @@ class ApproachPersonServer():
 
     def setParams(self, switch):
         if switch == 'approach':
-            goal_tolerance = {'xy_goal_tolerance':1.0, 'yaw_goal_tolerance':6.2}
+            goal_tolerance = {'xy_goal_tolerance':0.85, 'yaw_goal_tolerance':6.2}
             # realsense = {'enabled':False}
         elif switch == 'defalt':
             goal_tolerance = {'xy_goal_tolerance':0.15, 'yaw_goal_tolerance':0.08}
