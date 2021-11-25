@@ -97,14 +97,14 @@ const int    kUpdateLastImageCount = 30; // 比較する世界座標系の画像
 #endif
 
 const double kFollowMaxDistance = 6.0; // 追従距離の最大
-const double kFollowDistance    = 0.6; // 人からこの距離で追従する
-const double kFollowMinDistance = 0.6; // 追従距離の最小
+const double kFollowDistance    = 0.4; // 人からこの距離で追従する
+const double kFollowMinDistance = 0.3; // 追従距離の最小
 const double kFollowAngle       = 180; // 探す範囲は正面のこの角度[deg]
-const double kGainLinear        = 0.4;  // P制御比例ゲイン（並進）
-const double kKp                = 0.10; // PD制御ゲイン(回転)
+const double kGainLinear        = 0.4;  // P制御比例ゲイン（並進0.4）
+const double kKp                = 0.20; // PD制御ゲイン(回転0.10)
 const double kKd                = 5.25; //
 const double kLinearMaxSpeed    = 0.6;  // 並進の最大速度[m/s]
-const double kTurnMaxSpeed      = 1.0;  // 角速度 最大3.14[rad/s]
+const double kTurnMaxSpeed      = 0.5;  // 角速度 最大3.14[rad/s](1.0)
 //yamada
 const double kDefaultDetectPosX	= 250;  // 検出範囲(円)のxの初期の中心座標,[px]
 const double kDefaultDetectPosY = 200;  // 検出範囲(円)のyの初期の中心座標,[px]
