@@ -111,6 +111,7 @@ class HumanCoordGeneratorSrv():
                 # self.bc.rotateAngle(-45, 0.3)
             # 人がいるか
             self.dist_data = self.ml_srv(target_name = "person")
+            print self.dist_data
             list_len  = len(list(self.dist_data.points))
             # print list_len
             if list_len < 1:
@@ -120,8 +121,8 @@ class HumanCoordGeneratorSrv():
             else:
                 self.createDict(list_len)
             # 台車の回転
-            if i != 3:
-                self.bc.rotateAngle(-45, 0.3)
+            if i < 3:
+                self.bc.rotateAngle(-50, 0.3)
                 rospy.sleep(1.0)
         self.saveDict()
         print self.human_coord_dict

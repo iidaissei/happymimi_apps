@@ -33,7 +33,7 @@ class PubHumanTFAS():
         self.t.transform.rotation.z = 0.0
         self.t.transform.rotation.w = 1.0
         while not rospy.is_shutdown():
-            rospy.sleep(0.1)
+            rospy.sleep(0.2)
             self.t.header.stamp = rospy.Time.now()
             tfm = tf2_msgs.msg.TFMessage([self.t])
             self.pub_tf.publish(tfm)
