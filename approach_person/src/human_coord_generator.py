@@ -83,7 +83,9 @@ class HumanCoordGeneratorSrv():
             jm_result = True
         return jm_result
 
-    def change_dict_key(self, d, old_key, new_key):
+    # def change_dict_key(self, d, old_key, new_key):
+    def change_dict_key(self, d, old_key):
+        new_key = "human_" + str(len(self.human_coord_dict) + 1)
         d[new_key] = d[old_key]
         del d[old_key]
 
@@ -93,9 +95,10 @@ class HumanCoordGeneratorSrv():
             frame_id = "human_" + str(i)
             human_dict = self.ghc.execute(frame_id, self.dist_data.points[i].x, self.dist_data.points[i].y)
             if self.judgeMapin(human_dict[frame_id]):
-                new_id = "human_" + str(self.h_dict_count)
+                # new_id = "human_" + str(self.h_dict_count)
                 if frame_id in self.human_coord_dict:
-                    self.change_dict_key(human_dict, frame_id, new_id)
+                    # self.change_dict_key(human_dict, frame_id, new_id)
+                    self.change_dict_key(human_dict, frame_id)
                 self.human_coord_dict.update(human_dict)
                 print self.human_coord_dict
                 self.h_dict_count += 1
@@ -121,7 +124,7 @@ class HumanCoordGeneratorSrv():
             else:
                 self.createDict(list_len)
             # 台車の回転
-            if i < 3:
+            if i < 2:
                 self.bc.rotateAngle(-50, 0.3)
                 rospy.sleep(1.0)
         self.saveDict()
