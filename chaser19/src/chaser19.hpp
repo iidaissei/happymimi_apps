@@ -97,7 +97,7 @@ const int    kUpdateLastImageCount = 30; // 比較する世界座標系の画像
 #endif
 
 const double kFollowMaxDistance = 6.0; // 追従距離の最大
-const double kFollowDistance    = 0.4; // 人からこの距離で追従する
+const double kFollowDistance    = 0.3; // 人からこの距離で追従する
 const double kFollowMinDistance = 0.3; // 追従距離の最小
 const double kFollowAngle       = 180; // 探す範囲は正面のこの角度[deg]
 const double kGainLinear        = 0.4;  // P制御比例ゲイン（並進0.4）
