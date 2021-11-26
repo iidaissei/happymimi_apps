@@ -91,12 +91,9 @@ class HumanCoordGeneratorSrv():
         # map座標系に変換してlocation dictを作成
         for i in range(list_len):
             frame_id = "human_" + str(i)
-            # print "old_id: " + frame_id
             human_dict = self.ghc.execute(frame_id, self.dist_data.points[i].x, self.dist_data.points[i].y)
             if self.judgeMapin(human_dict[frame_id]):
                 new_id = "human_" + str(self.h_dict_count)
-                # print "new_id: " + new_id
-                # print human_dict
                 if frame_id in self.human_coord_dict:
                     self.change_dict_key(human_dict, frame_id, new_id)
                 self.human_coord_dict.update(human_dict)
@@ -107,20 +104,25 @@ class HumanCoordGeneratorSrv():
 
     def execute(self, srv_req):
         # while len(self.human_coord_dict) < 1:
-        for i in range(2):
+        # for i in range(2):
+        for i in range(3):
             print "count num: " + str(self.h_dict_count)
-            if i != 0:
-                self.bc.rotateAngle(-75)
+            # if i != 0:
+                # self.bc.rotateAngle(-45, 0.3)
             # 人がいるか
-            rospy.sleep(1.0)
             self.dist_data = self.ml_srv(target_name = "person")
             list_len  = len(list(self.dist_data.points))
             # print list_len
             if list_len < 1:
                 # self.bc.rotateAngle(-75)
-                rospy.sleep(2.0)
+                # rospy.sleep(2.0)
+                pass
             else:
                 self.createDict(list_len)
+            # 台車の回転
+            if i != 3:
+                self.bc.rotateAngle(-45, 0.3)
+                rospy.sleep(1.0)
         self.saveDict()
         print self.human_coord_dict
         return SimpleTrgResponse(result = True)
