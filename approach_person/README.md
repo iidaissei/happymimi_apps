@@ -26,7 +26,7 @@ approach_personは人接近機能を提供するROSパッケージです。
 
 
 <p align="center">
- <img src="https://user-images.githubusercontent.com/45844173/220968416-d7ffb16e-dc6c-4b94-9a7a-d9f49ef3a3f1.png" width="100%">
+ <img src="https://user-images.githubusercontent.com/45844173/220971226-730c7211-9fea-4f1b-9bed-88a895afa592.png" width="100%">
 </p>
 <p align="center">
   approach_person概略図
