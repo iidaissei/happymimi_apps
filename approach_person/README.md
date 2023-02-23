@@ -20,6 +20,9 @@ approach_personは人接近機能を提供するROSパッケージです。
     > human_coord_generatorは人のidと座標の辞書データを作成し、`tmp_human_location`として保存するためのサービスサーバです。
     > ここでは、[happymimi_recognition/recognition_processing](https://github.com/KIT-Happy-Robot/happymimi_recognition/tree/master/recognition_processing#multiple_localize)の[recognition/multiple_localizeサービスサーバ](https://github.com/KIT-Happy-Robot/happymimi_recognition/tree/master/recognition_processing#multiple_localize)から人のxy座標を取得し、pub_human_tfノードを用いてクォータ二オン座標に変換します。
     > さらにそれをマップ座標系に変換して人のidと紐付けることで辞書型データを作成し、[happymimi_params/location](https://github.com/KIT-Happy-Robot/happymimi_robot/tree/develop/happymimi_params/location)に`tmp_human_location`として保存します。
+    
+### マップ範囲内かのところ書く＆map_range.yamlの説明も
+    
 
 - ### pub_human_tf
     > pub_human_tfは人のクォータ二オン座標を生成するためにアクションサーバです。受け取った人のidとxy座標をもとに、クォータ二オン座標を生成し[TFMessage型](http://docs.ros.org/en/jade/api/tf2_msgs/html/msg/TFMessage.html)のトピックとして配布します。
