@@ -24,7 +24,7 @@ approach_personは人接近機能を提供するROSパッケージです。
     > human_coord_generatorは人のidと座標の辞書データを作成し、`tmp_human_location`として保存するためのサービスサーバです。
     > ここでは、[happymimi_recognition/recognition_processing](https://github.com/KIT-Happy-Robot/happymimi_recognition/tree/master/recognition_processing#multiple_localize)の[recognition/multiple_localizeサービスサーバ](https://github.com/KIT-Happy-Robot/happymimi_recognition/tree/master/recognition_processing#multiple_localize)から人のxy座標を取得し、pub_human_tfノードを用いてクォータ二オン座標に変換します。
     > さらにそれをマップ座標系に変換して人のidと紐付けることで辞書型データを作成し、[happymimi_params/location](https://github.com/KIT-Happy-Robot/happymimi_robot/tree/develop/happymimi_params/location)に`tmp_human_location`として保存します。
-    > また、[hapyymimi_params/location](https://github.com/KIT-Happy-Robot/happymimi_robot/tree/develop/happymimi_params/location)の`<map_name>_range.yaml`を読み込み、人の座標がマップの範囲内にあるか否かを判定する処理を行います。これは大会会場などで観客の座標を登録してしまうことを防ぎます。
+    > <br>また、[hapyymimi_params/location](https://github.com/KIT-Happy-Robot/happymimi_robot/tree/develop/happymimi_params/location)の`<map_name>_range.yaml`を読み込み、人の座標がマップの範囲内にあるか否かを判定する処理を行います。これは大会会場などで観客の座標を登録してしまうことを防ぎます。
     > 
     > **サービスサーバの仕様**
     > | Name | Type | Request | Result |
@@ -44,15 +44,34 @@ approach_personは人接近機能を提供するROSパッケージです。
 
 
 <br>approach_personのデータフロー図を以下に示します。
-<br>参考になれば幸いです。。。
 <p align="center">
- <img src="https://user-images.githubusercontent.com/45844173/220971226-730c7211-9fea-4f1b-9bed-88a895afa592.png" width="100%">
+ <img src="https://user-images.githubusercontent.com/45844173/221177745-8d40892e-df6a-4850-b029-3a5becef0e6e.png" width="100%">
 </p>
 <p align="center">
   approach_personのデータフロー
 </p>
 
+
 ## Usage
+ロボットとセンサの起動
+```
+$ roslaunch happymimi_bringup minimal.launch
+```
+```
+$ roslaunch happymimi_bringup sensor.launch
+```
+ナビゲーションに関するlaunchファイルの起動
+```
+$ roslaunch happymimi_navigation amcl.launch
+```
 
-
-
+```
+$ roslaunch happymimi_rviz_launchers view_navigation.launch
+```
+```
+$ rosrun happymimi_navigation navi_location.py
+```
+approach_person.launchの起動
+```
+$ roslaunch approach_person approach_person.launch
+```
